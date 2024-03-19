@@ -4,37 +4,29 @@ import { ShopContext } from '../../Context/ShopContext'
 import remove_icon from '../Assets/cart_cross_icon.png'
 
 export const CartItems = () => {
-    const {getTotalCartAmount, all_product, cartItems, removeFromCart } = useContext(ShopContext)
-    const [localcart, setLocalCart] = useState(cartItems);
+    const { getTotalCartAmount, all_product, cartItems, removeFromCart, setCartItems } = useContext(ShopContext)
     let isItem = false;
     const cartvalue = Object.values(cartItems)
-    
-    for(let i=0; i<cartvalue.length; i++)
-    {
-        if(cartvalue[i]>0)
-        {
+
+    for (let i = 0; i < cartvalue.length; i++) {
+        if (cartvalue[i] > 0) {
             isItem = true;
         }
     }
-    
-    useEffect(()=>{
-        const LocalCartitem = JSON.parse(localStorage.getItem('cart'))
-        if(isItem)
-        {
-            setLocalCart(LocalCartitem)
+    useEffect(() => {
+        if (!isItem) {
+            const LocalCartitem = JSON.parse(localStorage.getItem('cart'))
+            setCartItems(LocalCartitem)
+        }else{
             localStorage.removeItem('cart')
-            localStorage.setItem('cart',JSON.stringify(localcart));
+            localStorage.setItem('cart',JSON.stringify(cartItems));
         }
-        else{
-            setLocalCart(LocalCartitem)
-        }
-       
-    },[])
-    console.log(localcart);
-    // const localitem = JSON.parse(localStorage.getItem('cart'))
-    
-    
-    
+
+    }, [cartItems])
+
+
+
+
     return (
         <div className='cartitems'>
             <div className="cartitem_format_main">
@@ -46,19 +38,19 @@ export const CartItems = () => {
                 <p>Remove</p>
             </div>
             <hr />
-            {all_product.map((e)=>{ 
-                if(localcart[e.id]>0){
-                    return <div key={e.id}> 
-                    <div className="cartitem_format cartitem_format_main">
-                        <img src={e.image} alt="" className='carticon_product_icon' />
-                        <p>{e.name}</p>
-                        <p className='cartitem_price'>${e.new_price}</p>
-                        <button className='cartitem_quantity'>{localcart[e.id]}</button>
-                        <p className='cartitem_total'>${e.new_price*localcart[e.id]}</p>
-                        <img className='cartitem_remove_icon' src={remove_icon} onClick={()=>{removeFromCart(e.id)}} alt="" />
+            {all_product.map((e) => {
+                if (cartItems[e.id] > 0) {
+                    return <div key={e.id}>
+                        <div className="cartitem_format cartitem_format_main">
+                            <img src={e.image} alt="" className='carticon_product_icon' />
+                            <p>{e.name}</p>
+                            <p className='cartitem_price'>${e.new_price}</p>
+                            <button className='cartitem_quantity'>{cartItems[e.id]}</button>
+                            <p className='cartitem_total'>${e.new_price * cartItems[e.id]}</p>
+                            <img className='cartitem_remove_icon' src={remove_icon} onClick={() => { removeFromCart(e.id) }} alt="" />
+                        </div>
+                        <hr />
                     </div>
-                    <hr />
-                </div>
                 }
                 return null;
             })}
@@ -86,7 +78,7 @@ export const CartItems = () => {
                 <div className="cartitem_promocode">
                     <p>If you have a promo code, Enter it here</p>
                     <div className="cartitem_promobox">
-                        <input type="text" placeholder='promo code'/>
+                        <input type="text" placeholder='promo code' />
                         <button>Submit</button>
                     </div>
                 </div>

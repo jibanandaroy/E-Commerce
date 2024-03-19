@@ -14,21 +14,20 @@ const getDefaulCart = () => {
 const ShopContextProvider = (props) => {
     
     const [cartItems, setCartItems] = useState(getDefaulCart())
-
-
-    const localStorageAdd = ()=>{
-        let add = JSON.parse(localStorage.getItem('cart'))
-    }
     const addToCart = (itemId) => {
         setCartItems((prev) => ({ ...prev, [itemId]:prev[itemId] + 1 })) 
-
-            localStorage.removeItem('cart')
-            localStorage.setItem('cart',JSON.stringify(cartItems));
-        
+        const localitem = JSON.parse(localStorage.getItem('cart'))
+        if(localitem){
+               localStorage.removeItem('cart')
+               localStorage.setItem('cart',JSON.stringify(cartItems));
+        }  
         
     }
     const removeFromCart = (itemId) => {
         setCartItems((prev) => ({ ...prev, [itemId]:prev[itemId] - 1 }))
+        localStorage.removeItem('cart')
+        localStorage.setItem('cart',JSON.stringify(cartItems));
+         
     }
 
     const getTotalCartAmount = () => {
@@ -43,7 +42,7 @@ const ShopContextProvider = (props) => {
         console.log(totalAmount);
     }
 
-    const contextValue = {setCartItems, getTotalCartAmount, all_product, cartItems, addToCart, removeFromCart };
+    const contextValue = { setCartItems, getTotalCartAmount, all_product, cartItems, addToCart, removeFromCart };
 
 
 
