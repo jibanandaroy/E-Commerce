@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect} from 'react'
 import './CartItems.css'
 import { ShopContext } from '../../Context/ShopContext'
 import remove_icon from '../Assets/cart_cross_icon.png'
@@ -23,8 +23,6 @@ export const CartItems = () => {
         }
 
     }, [cartItems])
-
-
 
 
     return (
