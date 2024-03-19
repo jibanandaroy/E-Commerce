@@ -1,28 +1,26 @@
+
 import React, { useContext, useEffect} from 'react'
+
+
 import './CartItems.css'
 import { ShopContext } from '../../Context/ShopContext'
 import remove_icon from '../Assets/cart_cross_icon.png'
 
 export const CartItems = () => {
-    const { getTotalCartAmount, all_product, cartItems, removeFromCart, setCartItems } = useContext(ShopContext)
-    let isItem = false;
-    const cartvalue = Object.values(cartItems)
+    const { getTotalCartAmount, all_product, cartItems, removeFromCart , setCartItems} = useContext(ShopContext)
 
-    for (let i = 0; i < cartvalue.length; i++) {
-        if (cartvalue[i] > 0) {
-            isItem = true;
-        }
-    }
     useEffect(() => {
-        if (!isItem) {
+        const cartValues = Object.values(cartItems);
+        const hasItems = cartValues.some(quantity => quantity > 0);
+        if (!hasItems) {
             const LocalCartitem = JSON.parse(localStorage.getItem('cart'))
-            setCartItems(LocalCartitem)
+            if(LocalCartitem) setCartItems(LocalCartitem)
         }else{
             localStorage.removeItem('cart')
             localStorage.setItem('cart',JSON.stringify(cartItems));
         }
-
     }, [cartItems])
+
 
 
     return (
