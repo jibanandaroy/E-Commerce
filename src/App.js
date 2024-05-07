@@ -13,8 +13,12 @@ import women_banner from './Component/Assets/banner_women.png'
 import kid_banner from './Component/Assets/banner_kids.png'
 import Admin from './Admin/components/Admin/Admin'
 import AddProduct from './Admin/components/AddProduct/AddProduct'
+import axios from 'axios';
 
 function App() {
+  axios.defaults.baseURL="http://localhost:8000";
+  axios.defaults.withCredentials=true;
+
   return (
     <div >
       <BrowserRouter>

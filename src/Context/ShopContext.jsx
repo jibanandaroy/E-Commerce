@@ -1,6 +1,7 @@
 
-import React, { createContext, useState } from "react";
+import React, {useEffect, createContext, useState } from "react";
 import all_product from '../Component/Assets/all_product'
+import axios from 'axios';
 
 
 export const ShopContext = createContext(null)
@@ -13,6 +14,12 @@ const getDefaulCart = () => {
 }
 
 const ShopContextProvider = (props) => {
+    const [user, setUser] = useState({
+        name: '',
+        email: '',
+        role: '',
+        id:''
+    });
     
     const [cartItems, setCartItems] = useState(getDefaulCart())
     const addToCart = (itemId) => {
@@ -53,7 +60,18 @@ const ShopContextProvider = (props) => {
         }
         return totalItem;
     }
-    const contextValue = {getTotalCartItem, setCartItems, getTotalCartAmount, all_product, cartItems, addToCart, removeFromCart };
+
+    useEffect(() => {
+        const getUser = async () => {
+            const response = await axios.get('/api/auth/profile')
+            if (response.data) setUser(response.data);
+
+        }
+        getUser();
+    }, [user.email])
+
+
+    const contextValue = {getTotalCartItem, setCartItems, getTotalCartAmount, all_product, cartItems, addToCart, removeFromCart,user };
 
 
 

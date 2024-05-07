@@ -19,7 +19,7 @@ export const CartItems = () => {
             localStorage.removeItem('cart')
             localStorage.setItem('cart',JSON.stringify(cartItems));
         }
-    }, [cartItems])
+    }, [cartItems,setCartItems])
 
 
 
