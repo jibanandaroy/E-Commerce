@@ -1,5 +1,5 @@
 
-import React, { useContext, useEffect} from 'react'
+import React, { useContext, useEffect, useState} from 'react'
 
 
 import './CartItems.css'
@@ -7,22 +7,26 @@ import { ShopContext } from '../../Context/ShopContext'
 import remove_icon from '../Assets/cart_cross_icon.png'
 
 export const CartItems = () => {
-    const { getTotalCartAmount, all_product, cartItems, removeFromCart , setCartItems} = useContext(ShopContext)
-
+    const { getTotalCartAmount, all_product,cart, removeFromCart} = useContext(ShopContext)
+    const [all_products, setAllProducts] = useState(all_product)
+    
+    
     useEffect(() => {
-        const cartValues = Object.values(cartItems);
-        const hasItems = cartValues.some(quantity => quantity > 0);
-        if (!hasItems) {
-            const LocalCartitem = JSON.parse(localStorage.getItem('cart'))
-            if(LocalCartitem) setCartItems(LocalCartitem)
-        }else{
-            localStorage.removeItem('cart')
-            localStorage.setItem('cart',JSON.stringify(cartItems));
+        if(cart){
+            const cartValues = Object.values(cart);
+            const hasItems = cartValues.some(quantity => quantity > 0);
+            if (!hasItems) {
+                const LocalCartitem = JSON.parse(localStorage.getItem('cart'))
+                if(LocalCartitem) setAllProducts(LocalCartitem);
+            }else{
+                localStorage.removeItem('cart')
+                localStorage.setItem('cart',JSON.stringify(cart));
+            }
         }
-    }, [cartItems,setCartItems])
+    }, [cart,setAllProducts])
 
 
-
+    // console.log(all_products);
     return (
         <div className='cartitems'>
             <div className="cartitem_format_main">
@@ -35,14 +39,14 @@ export const CartItems = () => {
             </div>
             <hr />
             {all_product.map((e) => {
-                if (cartItems[e.id] > 0) {
+                if ( cart && cart[e.id] > 0) {
                     return <div key={e.id}>
                         <div className="cartitem_format cartitem_format_main">
                             <img src={e.image} alt="" className='carticon_product_icon' />
                             <p>{e.name}</p>
-                            <p className='cartitem_price'>${e.new_price}</p>
-                            <button className='cartitem_quantity'>{cartItems[e.id]}</button>
-                            <p className='cartitem_total'>${e.new_price * cartItems[e.id]}</p>
+                            <p className='cartitem_price'>${e.offerPrice}</p>
+                            <button className='cartitem_quantity'>{cart[e.id]}</button>
+                            <p className='cartitem_total'>${e.offerPrice * cart[e.id]}</p>
                             <img className='cartitem_remove_icon' src={remove_icon} onClick={() => { removeFromCart(e.id) }} alt="" />
                         </div>
                         <hr />

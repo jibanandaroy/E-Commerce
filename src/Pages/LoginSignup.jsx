@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './CSS/LoginSignup.css'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { ShopContext } from '../Context/ShopContext'
 
 export const LoginSignup = () => {
+  const { setUser } = useContext(ShopContext);
+
   const navigate = useNavigate();
   const [state, setState] = useState("Login")
 
@@ -36,7 +39,7 @@ export const LoginSignup = () => {
       const response = await axios.post('/api/auth/login', {
         email, password
       })
-
+      setUser((prev)=>({...prev,isLogdin:true}))
       if (response.data.error) {
         alert(response.data.error);
         return;
@@ -47,6 +50,8 @@ export const LoginSignup = () => {
       console.log(error);
     }
   }
+
+
 
   const signup = async (e) => {
     // e.preventDefault();
@@ -71,7 +76,8 @@ export const LoginSignup = () => {
         return;
       }
       if (response.data.success) {
-        console.log("signup successful");
+        setUser((prev)=>({...prev,isLogdin:true}))
+        alert("check and verify your mail")
       }
       navigate('/');
     } catch (error) {

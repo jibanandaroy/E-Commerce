@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext,  useRef, useState } from 'react'
 import './Navber.css'
 import logo from '../Assets/logo.png'
 import cart_icon from '../Assets/cart_icon.png'
@@ -6,14 +6,15 @@ import { Link, useNavigate } from 'react-router-dom'
 import { ShopContext } from '../../Context/ShopContext'
 import dropdown_icon from '../Assets/nav_dropdown.png'
 import axios from 'axios';
-
+ 
 
 export const Navber = () => {
   const navigate = useNavigate();
   const [menu, setMenu] = useState("shop")
-  const { getTotalCartItem, user } = useContext(ShopContext);
+  const {getTotalCartItem, user,setUser } = useContext(ShopContext);
   const menuRef = useRef();
-  const [isLoggedin, setIsLoggedin] = useState(false);
+  
+
 
   const deopdown_toggle = (e) => {
     menuRef.current.classList.toggle('nav_menu_visible');
@@ -22,15 +23,12 @@ export const Navber = () => {
 
   
   const handleLogout = async () => {
-    setIsLoggedin(true)
-    const res = await axios.get('/api/auth/logout')
+    await axios.get('/api/auth/logout')
+    setUser((prev)=>({...prev,isLogdin:false}))
     navigate('/login')
   }
 
-
-
-
-
+ 
   return (
     <div className='navber'>
       <div className="nav_logo">
@@ -44,8 +42,8 @@ export const Navber = () => {
         <li onClick={() => { setMenu("womens") }}> <Link style={{ textDecoration: 'none' }} to='/womens'>Women</Link> {menu === "womens" ? <hr /> : <></>}</li>
         <li onClick={() => { setMenu("kids") }}> <Link style={{ textDecoration: 'none' }} to='/kids'>Kids</Link> {menu === "kids" ? <hr /> : <></>}</li>
       </ul>
-      <div className="nav_login_cart">
-        {(isLoggedin || user.email) ? <Link><button onClick={handleLogout}>Logout</button></Link> : <Link to='/login'><button>Login</button></Link>}
+      <div className="nav_login_cart" >
+        {(user.isLogdin) ? <button onClick={handleLogout}>Logout</button> : <button onClick={()=>(navigate('/login'))}>Login</button>}
         <Link to='/cart'><img src={cart_icon} alt="" /></Link>
         <div className="nav_cart_count">{getTotalCartItem()}</div>
       </div>
