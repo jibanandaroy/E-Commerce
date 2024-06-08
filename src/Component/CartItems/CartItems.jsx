@@ -7,9 +7,8 @@ import { ShopContext } from '../../Context/ShopContext'
 import remove_icon from '../Assets/cart_cross_icon.png'
 
 export const CartItems = () => {
-    const { getTotalCartAmount, all_product,cart, removeFromCart} = useContext(ShopContext)
+    const { getTotalCartAmount, all_product,cart, removeFromCart,user} = useContext(ShopContext)
     const [all_products, setAllProducts] = useState(all_product)
-    
     
     useEffect(() => {
         if(cart){
@@ -39,7 +38,7 @@ export const CartItems = () => {
             </div>
             <hr />
             {all_product.map((e) => {
-                if ( cart && cart[e.id] > 0) {
+                if (user.isLogdin && cart && cart[e.id] > 0) {
                     return <div key={e.id}>
                         <div className="cartitem_format cartitem_format_main">
                             <img src={e.image} alt="" className='carticon_product_icon' />

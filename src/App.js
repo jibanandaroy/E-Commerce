@@ -14,6 +14,7 @@ import kid_banner from './Component/Assets/banner_kids.png'
 import Admin from './Admin/components/Admin/Admin'
 import AddProduct from './Admin/components/AddProduct/AddProduct'
 import axios from 'axios';
+import Listproduct from './Admin/components/ListProduct/Listproduct';
 
 function App() {
   axios.defaults.baseURL="http://localhost:8000";
@@ -36,6 +37,7 @@ function App() {
         <Route path='/login' element={<LoginSignup/>}></Route>
         <Route path='/admin' element={<Admin/>}></Route>
         <Route path='/admin/addproduct' element={<AddProduct/>}></Route>
+        <Route path='/admin/listproduct' element={<Listproduct/>}></Route>
       </Routes>
       <Footer/>
       </BrowserRouter>

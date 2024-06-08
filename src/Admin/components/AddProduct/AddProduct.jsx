@@ -7,7 +7,7 @@ import { ShopContext } from '../../../Context/ShopContext';
 
 const AddProduct = () => {
   // const[image, setImage] = useState(false);
-  const { user } = useContext(ShopContext)
+  const { user,setProducts,all_product } = useContext(ShopContext)
   const [data, setData] = useState({
     name: '',
     userId: user.id,
@@ -17,7 +17,6 @@ const AddProduct = () => {
     image: ''
   })
 
-  console.log(data);
   useEffect(() => {
     data.userId = user.id;
   }, [user.id])
@@ -54,8 +53,9 @@ const AddProduct = () => {
         console.log(response.data.error);
       } else {
         console.log(response.data);
-
-        // alert("successfully add a product")
+        // const res = response.data;
+        setProducts((prev)=>([...prev,response.data]))
+        alert("successfully add a product")
       }
     }
     catch (error) {

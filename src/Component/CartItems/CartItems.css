@@ -69,6 +69,11 @@
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
+    border-radius: 10px;
+    transition: .5s;
+}
+.cartitem_total_price button:hover{
+    background: blue;
 }
 .cartitem_promocode{
     flex: 1;

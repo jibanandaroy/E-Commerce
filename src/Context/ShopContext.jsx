@@ -15,7 +15,10 @@ const ShopContextProvider = (props) => {
     });
     const [all_product, setProducts] = useState([]);
 
+
     const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')))
+
+    
     useEffect(() => {
         if (!cart) {
             for (let index = 0; index < all_product.length; index++) {
@@ -41,17 +44,29 @@ const ShopContextProvider = (props) => {
         getProduct()
     }, [])
 
-    const addToCart = (itemId) => { 
+    const deleteProduct = async (id) => {
 
-       setCart((prev) => ({ ...prev, [itemId]: cart[itemId] + 1 }))
+        try {
+            const newProduct = all_product.filter((data) => data.id !== id)
+            setProducts(newProduct)
+            await axios.delete(`/api/product/product/${id}`)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+    const addToCart = (itemId) => {
+
+        setCart((prev) => ({ ...prev, [itemId]: cart[itemId] + 1 }))
         const localitem = JSON.parse(localStorage.getItem('cart'))
 
         if (localitem) {
             localitem[itemId] = localitem[itemId] + 1;
-            localStorage.setItem('cart', JSON.stringify(localitem));  
-        }else {
+            localStorage.setItem('cart', JSON.stringify(localitem));
+        } else {
             cart[itemId] = cart[itemId] + 1;
-            localStorage.setItem('cart', JSON.stringify(cart)); 
+            localStorage.setItem('cart', JSON.stringify(cart));
         }
     }
 
@@ -68,8 +83,10 @@ const ShopContextProvider = (props) => {
         for (const item in cart) {
             if (cart[item] > 0) {
 
-                // let itemInfo = all_product.find((product) => product.id === (item))
-                // totalAmount += itemInfo.offerPrice * cart[item];
+                const itemInfo = all_product.find((product) => product.id === (item))
+                if (itemInfo !== undefined) {
+                    totalAmount += itemInfo.offerPrice * cart[item];
+                }
             }
         }
         return totalAmount
@@ -78,7 +95,7 @@ const ShopContextProvider = (props) => {
     const getTotalCartItem = (cartItems) => {
         let totalItem = 0;
         for (const item in cart) {
-            if (cart[item] > 0) {
+            if (user.isLogdin && cart[item] > 0) {
                 totalItem += cart[item]
             }
         }
@@ -96,7 +113,9 @@ const ShopContextProvider = (props) => {
     }, [user.isLogdin])
 
 
-    const contextValue = { getTotalCartItem, getTotalCartAmount, removeFromCart, cart, all_product, addToCart, user, setUser };
+
+
+    const contextValue = { getTotalCartItem, getTotalCartAmount, removeFromCart, deleteProduct, setProducts, cart, all_product, addToCart, user, setUser };
 
 
 

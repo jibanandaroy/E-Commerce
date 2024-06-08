@@ -31,10 +31,12 @@ export const Navber = () => {
  
   return (
     <div className='navber'>
+      <Link style={{ textDecoration: 'none' }} to='/'>
       <div className="nav_logo">
         <img src={logo} alt="" />
         <p>SHOPPER</p>
       </div>
+      </Link>
       <img className='nav_dropdown' onClick={deopdown_toggle} src={dropdown_icon} alt="" />
       <ul ref={menuRef} className='nav_menu'>
         <li onClick={() => { setMenu("shop") }}> <Link style={{ textDecoration: 'none' }} to='/'>Shop</Link> {menu === "shop" ? <hr /> : <></>}</li>

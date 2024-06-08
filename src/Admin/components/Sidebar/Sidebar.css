@@ -14,7 +14,7 @@
     align-items: center;
     justify-content: center;
     margin: 0px 20px;
-    padding: 5px 10px;
+    padding: 10px 10px;
     border-radius: 6px;
     background: #f6f6f6;
     gap: 20px;
@@ -22,13 +22,14 @@
 }
 .orderlist{
     gap:15px;
+    padding: 6px 0px;
 }
 .orderlist p{
     margin-right: 20px;
 }
 .orderlist_icon{
     filter: invert(73%) sepia(61%) saturate(330%) hue-rotate(7deg) brightness(98%) contrast(88%);
-    height: 45px;
+    height: 40px;
 }
 
 @media(max-width:800px){

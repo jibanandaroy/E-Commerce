@@ -24,6 +24,7 @@ export const ProductDisplay = (props) => {
     }, [])
     const { addToCart } = useContext(ShopContext)
     
+    
     return (
         <div className='productdisplay'>
             <div className="productdisplay_left">
@@ -58,7 +59,7 @@ export const ProductDisplay = (props) => {
                 </div>
                 <div className="productdisplay_right_size">
                     <h1>Select Size</h1>
-                    <div className="productdisplay_right_sizes">
+                    <div className="productdisplay_right_sizes" >
                         <div>S</div>
                         <div>M</div>
                         <div>L</div>
