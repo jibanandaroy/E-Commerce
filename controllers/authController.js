@@ -1,8 +1,20 @@
 const { hashPassword, comparePassword } = require('../helper/auth');
+const verifyEmail = require('../helper/verifyEmail');
+const VerifyTamp = require('../utils/VerifyTemp')
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
+// const { default: verifyTemp } = require('../utils/verifyTemp');
 const env = require('dotenv').config();
 
+const emailVerify = async (req, res) => {
+    const { Id } = req.params;
+    const {id} = req.query;
+    if (Id == process.env.JWT_SECRET) {
+        await User.updateOne({_id:id},{$set:{isVerified:true}});
+    }
+    return res.json({message:'mail is verifird',success:true})
+    
+}
 const registerUser = async (req, res) => {
 
     const { name, email, password, role } = req.body;
@@ -19,7 +31,7 @@ const registerUser = async (req, res) => {
                 error: "email is require"
             })
         }
-        
+
         if (!password || password.length < 6) {
             return res.json({
                 error: "password is require it whould be at least 6 characters"
@@ -36,14 +48,28 @@ const registerUser = async (req, res) => {
 
 
         const hashedPassword = await hashPassword(password);
-        const user = await User.create({ name, email, role, password: hashedPassword });
+        const user = await User.create({ name, email, role, password: hashedPassword, isVerified:false });
 
-        return res.json({success:true,user});
+        //mail send
+        const url = `${process.env.APP_DOMAIN}/api/auth/verify/${process.env.JWT_SECRET}?id=${user._id}`
+        verifyEmail(email, 'verify email', VerifyTamp(name, url))
+
+        const token=await jwt.sign({ email,name, id: user._id, role,isVerified:false }, process.env.JWT_SECRET)
+        return res.cookie('token', token, {
+            expires: new Date(Date.now() + 2589200000),
+            httpOnly: true,
+        }).json({ success: true, user });
+
+    
 
     }
     catch (error) {
         res.json({ error: "some error are there " })
     }
+
+
+
+
 
 }
 const loginUser = async (req, res) => {
@@ -63,11 +89,11 @@ const loginUser = async (req, res) => {
 
         if (matched) {
             //jwt........
-            jwt.sign({ email: user.email, name: user.name, id: user._id, role: user.role }, process.env.JWT_SECRET, {}, (error, token) => {
+            jwt.sign({ email: user.email, name: user.name, id: user._id, role: user.role, isVerified:false }, process.env.JWT_SECRET, {}, (error, token) => {
                 if (error) throw error;
                 res.cookie('token', token, {
                     expires: new Date(Date.now() + 2589200000),
-                    httpOnly: true, 
+                    httpOnly: true,
                 }).json(user);
 
             })
@@ -90,6 +116,7 @@ const getProfile = async (req, res) => {
     if (token) {
         jwt.verify(token, process.env.JWT_SECRET, {}, (error, user) => {
             if (error) throw error
+            // console.log(user);
             res.json(user);
         })
 
@@ -98,45 +125,43 @@ const getProfile = async (req, res) => {
     }
 }
 
-const getUsers = async(req, res) =>{
-    try{
+const getUsers = async (req, res) => {
+    try {
 
         const users = await User.find();
-        const usersData= [];
-        users.map((user, ind)=>{
+        const usersData = [];
+        users.map((user, ind) => {
 
             let obj = {
-                id : user._id,
+                id: user._id,
                 name: user.name,
-                role:user.role,
-                email:user.email
+                role: user.role,
+                email: user.email
             }
             usersData.push(obj);
 
-        }) 
+        })
 
         res.json(usersData);
 
-    }catch(error){
+    } catch (error) {
         res.json({
-            error:'user not found'
+            error: 'user not found'
         })
     }
 }
 
-const removeUser = async(req, res) =>
-{
-    try{
+const removeUser = async (req, res) => {
+    try {
 
-        const {id} = req.params;
-    
-        const dUser = await User.deleteOne({_id :id});
+        const { id } = req.params;
+
+        const dUser = await User.deleteOne({ _id: id });
         res.json(dUser);
-        
-    }catch(erro)
-    {
+
+    } catch (erro) {
         res.json({
-            error:"User are not deleted",
+            error: "User are not deleted",
         })
     }
 }
@@ -153,5 +178,5 @@ const logoutUser = async (req, res) => {
         });
     }
 };
-module.exports = { registerUser, loginUser, getProfile, getUsers, removeUser, logoutUser };
+module.exports = { registerUser, loginUser, getProfile, getUsers, removeUser, logoutUser, emailVerify };
 

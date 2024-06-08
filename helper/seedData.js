@@ -4,7 +4,7 @@ async function hashPassword(password) {
   return bcrypt.hash(password, 12);
 }
 
-const userSeedData = [
+const userSeedData = [ 
     {
         'name':"Jibon Roy",
         'email':"jibonroy282@gmail.com",

@@ -9,6 +9,14 @@ const userSchema = new Schema({
     },
     password:String,
     role:Number,
+    isVerified: { 
+        type: Boolean,
+        default:false
+    },
+    cartId:{
+        type:mongoose.Types.ObjectId,
+        ref:"Cart"
+    }
     
 })
 
