@@ -1,20 +1,25 @@
 const { hashPassword, comparePassword } = require('../helper/auth');
-const verifyEmail = require('../helper/verifyEmail');
-const VerifyTamp = require('../utils/VerifyTemp')
+// const verifyEmail = require('../helper/verifyEmail');
+// const VerifyTamp = require('../utils/VerifyTemp')
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 // const { default: verifyTemp } = require('../utils/verifyTemp');
 const env = require('dotenv').config();
-
-const emailVerify = async (req, res) => {
-    const { Id } = req.params;
-    const {id} = req.query;
-    if (Id == process.env.JWT_SECRET) {
-        await User.updateOne({_id:id},{$set:{isVerified:true}});
-    }
-    return res.json({message:'mail is verifird',success:true})
+const mailer = require('../helper/mailer');
+const { validationResult } = require('express-validator');
+const randomstring = require('randomstring')
+const PasswordReset = require('../models/passwordReset');
+const { json } = require('body-parser');
+// const emailVerify = async (req, res) => {
+//     const { Id } = req.params;
+//     const {id} = req.query;
+//     if (Id == process.env.JWT_SECRET) {
+//         await User.updateOne({_id:id},{$set:{isVerified:true}});
+//     }
+//     return res.json({message:'mail is verifird',success:true})
     
-}
+// }
+
 const registerUser = async (req, res) => {
 
     const { name, email, password, role } = req.body;
@@ -51,14 +56,18 @@ const registerUser = async (req, res) => {
         const user = await User.create({ name, email, role, password: hashedPassword, isVerified:false });
 
         //mail send
-        const url = `${process.env.APP_DOMAIN}/api/auth/verify/${process.env.JWT_SECRET}?id=${user._id}`
-        verifyEmail(email, 'verify email', VerifyTamp(name, url))
+        const msg = '<p>Hi '+name+', Please <a href="http://localhost:8000/mail-verification?id='+user._id+'">Verify</a> your mail.</p>'
 
-        const token=await jwt.sign({ email,name, id: user._id, role,isVerified:false }, process.env.JWT_SECRET)
-        return res.cookie('token', token, {
-            expires: new Date(Date.now() + 2589200000),
-            httpOnly: true,
-        }).json({ success: true, user });
+        mailer.sendMail(email, 'Mail Verification', msg);
+
+        // const token=await jwt.sign({ email,name, id: user._id, role,isVerified:false }, process.env.JWT_SECRET)
+        // return res.cookie('token', token, {
+        //     expires: new Date(Date.now() + 2589200000),
+        //     httpOnly: true,
+        // }).json({ success: true, user });
+        return res.status(201).json({
+            success:true
+        })
 
     
 
@@ -66,11 +75,6 @@ const registerUser = async (req, res) => {
     catch (error) {
         res.json({ error: "some error are there " })
     }
-
-
-
-
-
 }
 const loginUser = async (req, res) => {
 
@@ -83,9 +87,19 @@ const loginUser = async (req, res) => {
                 error: "user not found"
             })
         }
-
         const matched = await comparePassword(password, user.password);
 
+        if(!matched){
+            return res.json({
+                error: "Please Enter correct password"
+            })
+        }
+        if(user.isVerified == false){
+            return res.json({
+                error: "Mail is not verified"
+            })
+        }
+        
 
         if (matched) {
             //jwt........
@@ -178,5 +192,137 @@ const logoutUser = async (req, res) => {
         });
     }
 };
-module.exports = { registerUser, loginUser, getProfile, getUsers, removeUser, logoutUser, emailVerify };
+
+const mailVerification = async(req,res) =>{
+
+    try{
+        if(req.query.id == undefined){
+            return res.render('404')
+        }
+        const userData = await User.findOne({_id:req.query.id});
+        if(userData){ 
+            if(userData.isVerified == true){
+                return res.render('mail-verification',{message:'Your mail already verified!'})
+            }
+           await User.findByIdAndUpdate({_id:req.query.id},{
+            $set:{
+                isVerified:true
+            }
+           })
+           return res.render('mail-verification',{message:'Mail has been verified Successfully'})
+            
+           
+        }else{
+            return res.render('mail-verification',{message:"user not found"})
+        }
+
+    }catch(error){
+        // console.log(error);
+        return res.render('404')
+    }
+}
+
+const forgotPassword = async(req,res) =>{
+    try{
+        const errors = validationResult(req);
+
+        if(!errors.isEmpty()){
+            return res.status(400).json({
+                success:false,
+                msg:"Error",
+                error:errors.array()
+            });
+        }
+
+        const {email} = req.body;
+
+        const userData = await User.findOne({email});
+
+        if(!userData){
+            return res.status(400).json({
+                success:false,
+                msg:"Email doesn't exists!"
+            })
+        }
+
+        const randomString = randomstring.generate();
+        const msg = '<p>Hii '+userData.name+', Please click <a href="http://localhost:8000/reset-password?token='+randomString+'">Here</a> to Reset your Password</p>'
+        await PasswordReset.deleteMany({user_id: userData._id});
+        const passwordReset = PasswordReset({
+            user_id:userData._id,
+            token:randomString
+        })
+        await passwordReset.save();
+        mailer.sendMail(userData.email, 'Reset password', msg);
+        return res.status(201).json({
+            success:true,
+            msg:'Reset Password Link send to your mail, Please check!'
+        })
+
+
+    }catch(error){
+        return res.status(400).json({
+            success:false,
+            msg:error.message
+        })
+    }
+}
+
+const resetPassword = async (req,res) =>{
+    try{
+        if(req.query.token == undefined){
+            return res.render('404');
+        }
+        const resetData = await PasswordReset.findOne({token: req.query.token});
+        
+        if(!resetData){
+            
+            return res.render('404');
+        }
+        console.log(resetData.token);
+        return res.render('reset-password',{resetData});
+
+    }catch(error){
+        
+        return res.render('404');
+    }
+}
+
+const updatePassword = async(req,res) =>{
+    try{
+        const {user_id, password, c_password} = req.body;
+
+        const resetData = await PasswordReset.findOne({user_id});
+
+        if(password != c_password){
+            return res.render('reset-password',{resetData, error:'Confirm Password not matching!'})
+        }
+
+        const hashedPassword = await hashPassword(c_password);
+        await User.findByIdAndUpdate({_id:user_id},{
+            $set:{
+                password:hashedPassword
+            }
+        });
+
+        PasswordReset.deleteMany({user_id});
+
+        return res.redirect('/reset-success');
+
+    }catch(error){
+        
+        return res.render('404');
+    }
+}
+
+
+const resetSuccess = async (req,res) =>{
+    try{
+        return res.render('reset-success') 
+    }catch(error){ 
+        return res.render('404');
+    }
+}
+
+module.exports = { registerUser, loginUser, getProfile, getUsers, removeUser, logoutUser,mailVerification,forgotPassword,resetPassword,updatePassword,resetSuccess };
 

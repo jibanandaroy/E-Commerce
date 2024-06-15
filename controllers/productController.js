@@ -120,9 +120,7 @@ const deleteProduct = async (req, res) => {
 //           })
 //      }
 // }
-const addToCart = async () =>{
-     
-}
+
 
 const newCollection = async (req,res) =>{
      let products = await Product.find({});

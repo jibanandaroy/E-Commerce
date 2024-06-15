@@ -9,6 +9,10 @@ const userSchema = new Schema({
     },
     password:String,
     role:Number,
+    isLogdin:{
+        type: Boolean,
+        default:false
+    },
     isVerified: { 
         type: Boolean,
         default:false
