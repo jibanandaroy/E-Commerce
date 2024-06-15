@@ -9,7 +9,10 @@ export const Item = (props) => {
   
   return (
     <div className='item'>
-        <Link to={`/product/${props.id}`} ><img  onClick={handleClick} src={props.image} alt="" /></Link>
+      <div className="item_img">
+      <Link to={`/product/${props.id}`} ><img  onClick={handleClick} src={props.image} alt="" /></Link>
+      </div>
+        
         <p>{props.name}</p>
         <div className="item_prices">
             <div className="item_price_new">

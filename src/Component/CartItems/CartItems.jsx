@@ -1,31 +1,48 @@
 
-import React, { useContext, useEffect, useState} from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 
 import './CartItems.css'
 import { ShopContext } from '../../Context/ShopContext'
 import remove_icon from '../Assets/cart_cross_icon.png'
+import Modal from './Modal'
 
 export const CartItems = () => {
-    const { getTotalCartAmount, all_product,cart, removeFromCart,user} = useContext(ShopContext)
+    const { getTotalCartAmount, all_product, cart, removeFromCart, user } = useContext(ShopContext)
     const [all_products, setAllProducts] = useState(all_product)
-    
+    const [modal, setModal] = useState(false);
+
+     
+
+
     useEffect(() => {
-        if(cart){
+        if (cart) {
             const cartValues = Object.values(cart);
             const hasItems = cartValues.some(quantity => quantity > 0);
             if (!hasItems) {
                 const LocalCartitem = JSON.parse(localStorage.getItem('cart'))
-                if(LocalCartitem) setAllProducts(LocalCartitem);
-            }else{
+                if (LocalCartitem) setAllProducts(LocalCartitem);
+            } else {
                 localStorage.removeItem('cart')
-                localStorage.setItem('cart',JSON.stringify(cart));
+                localStorage.setItem('cart', JSON.stringify(cart));
             }
         }
-    }, [cart,setAllProducts])
+    }, [cart, setAllProducts])
 
+    //modal
+    const toggleModal = () => {
+        setModal(!modal);
+    };
 
-    // console.log(all_products);
+    if (modal) {
+        document.body.classList.add('active-modal')
+    } else {
+        document.body.classList.remove('active-modal')
+    }
+
+    //payment
+    
+
     return (
         <div className='cartitems'>
             <div className="cartitem_format_main">
@@ -72,15 +89,23 @@ export const CartItems = () => {
                             <h3>${getTotalCartAmount()}</h3>
                         </div>
                     </div>
-                    <button>PROCEED TO CHECKOUT</button>
+                    <button className='payment_btn' onClick={toggleModal}>PROCEED TO CHECKOUT</button>
+                    {modal && (
+                    <Modal 
+                    modal={modal}
+                    toggleModal={toggleModal}
+                    setModal={setModal}
+                    />
+                )}
+                    
                 </div>
-                <div className="cartitem_promocode">
+                {/* <div className="cartitem_promocode">
                     <p>If you have a promo code, Enter it here</p>
                     <div className="cartitem_promobox">
                         <input type="text" placeholder='promo code' />
                         <button>Submit</button>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     )

@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom'
 import { ShopContext } from '../Context/ShopContext'
 
 export const LoginSignup = () => {
-  const { setUser } = useContext(ShopContext);
+  const { setUser, user } = useContext(ShopContext);
+  
 
   const navigate = useNavigate();
   const [state, setState] = useState("Login")
@@ -39,18 +40,18 @@ export const LoginSignup = () => {
       const response = await axios.post('/api/auth/login', {
         email, password
       })
-      setUser((prev)=>({...prev,isLogdin:true}))
+      
       if (response.data.error) {
         alert(response.data.error);
         return;
       }
+      setUser((prev)=>({...prev,isLogdin:true}))
       navigate('/');
 
     } catch (error) {
       console.log(error);
     }
   }
-
 
 
   const signup = async (e) => {
@@ -76,10 +77,9 @@ export const LoginSignup = () => {
         return;
       }
       if (response.data.success) {
-        setUser((prev)=>({...prev,isLogdin:true}))
-        alert("check and verify your mail")
+        alert("Please Ckeck your mail & verify")
       }
-      navigate('/');
+      setState("Login")
     } catch (error) {
       console.log(error);
     }

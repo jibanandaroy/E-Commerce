@@ -14,13 +14,15 @@ export const Popular = () => {
           console.log(error);
         })
     }, [])
+    // console.log(data_product);
+
   return (
     <div className='popular'>
       <h1>POPULAR IN WOMEN</h1>
       <hr />
       <div className="popular_item">
         {data_product.map((item, i) => {
-          return <Item key={i} id={item.id} name={item.name} image={`http://localhost:8000/images/${item.image}`} new_price={item.price} old_price={item.offerPrice} />
+          return <Item key={i} id={item._id} name={item.name} image={`http://localhost:8000/images/${item.image}`} new_price={item.offerPrice} old_price={item.price} />
         })}
       </div>
     </div>

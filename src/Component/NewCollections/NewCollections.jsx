@@ -20,7 +20,7 @@ export const NewCollections = () => {
       <hr />
       <div className="collections">
         {new_collection.map((item, i) => {
-          return <Item key={i} id={item.id} name={item.name} image={`http://localhost:8000/images/${item.image}`} new_price={item.price} old_price={item.offerPrice} />
+          return <Item key={i} id={item._id} name={item.name} image={`http://localhost:8000/images/${item.image}`} new_price={item.offerPrice} old_price={item.price} />
         })}
       </div>
     </div>
