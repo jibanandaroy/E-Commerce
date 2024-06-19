@@ -15,31 +15,38 @@ import Admin from './Admin/components/Admin/Admin'
 import AddProduct from './Admin/components/AddProduct/AddProduct'
 import axios from 'axios';
 import Listproduct from './Admin/components/ListProduct/Listproduct';
+import { PrivateRoute } from './Route/PrivateRoute';
+import { ForgetPass } from './Pages/ForgetPass';
 
 function App() {
-  axios.defaults.baseURL="http://localhost:8000";
-  axios.defaults.withCredentials=true;
-  
+  axios.defaults.baseURL = "http://localhost:8000";
+  axios.defaults.withCredentials = true;
+
 
   return (
     <div >
       <BrowserRouter>
-      <Navber/>
-      <Routes>
-        <Route path='/' element={<Shop/>}></Route>
-        <Route path='/mens' element={<ShopCategory banner={men_banner } category="men"/>}></Route>
-        <Route path='/womens' element={<ShopCategory banner={women_banner} category="women"/>}></Route>
-        <Route path='/kids' element={<ShopCategory banner={kid_banner} category="kid"/>}></Route>
-        <Route path='/product' element={<Product/>}>
-           <Route path=':productId' element={<Product/>}></Route>
-        </Route>
-        <Route path='/cart' element={<Cart/>}></Route>
-        <Route path='/login' element={<LoginSignup/>}></Route>
-        <Route path='/admin' element={<Admin/>}></Route>
-        <Route path='/admin/addproduct' element={<AddProduct/>}></Route>
-        <Route path='/admin/listproduct' element={<Listproduct/>}></Route>
-      </Routes>
-      <Footer/>
+        <Navber />
+        <Routes>
+          <Route path='/' element={<Shop />}></Route>
+          <Route path='/login' element={<LoginSignup />}></Route>
+          <Route path='/forgetpass' element={<ForgetPass/>}></Route>
+          <Route element={<PrivateRoute />}>
+            <Route path='/mens' element={<ShopCategory banner={men_banner} category="men" />}></Route>
+            <Route path='/womens' element={<ShopCategory banner={women_banner} category="women" />}></Route>
+            <Route path='/kids' element={<ShopCategory banner={kid_banner} category="kid" />}></Route>
+            <Route path='/product' element={<Product />}>
+              <Route path=':productId' element={<Product />}></Route>
+            </Route>
+            <Route path='/cart' element={<Cart />}></Route>
+            <Route path='/admin' element={<Admin />}></Route>
+            <Route path='/admin/addproduct' element={<AddProduct />}></Route>
+            <Route path='/admin/listproduct' element={<Listproduct />}></Route>
+            
+          </Route>
+
+        </Routes>
+        <Footer />
       </BrowserRouter>
     </div>
   );

@@ -14,17 +14,18 @@ const ShopContextProvider = (props) => {
         isLogdin: false
     });
     const [all_product, setProducts] = useState([]);
+    const [token, setToken] = useState('')
 
-
-    const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')))
+    // const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')))
+    const [cartItems, setCartItems] = useState({})
 
     
     useEffect(() => {
-        if (!cart) {
+        if (!cartItems) {
             for (let index = 0; index < all_product.length; index++) {
                 // cart[index] = 0;
                 if (all_product.length) {
-                    setCart((prev) => ({ ...prev, [all_product[index].id]: 0 }));
+                    setCartItems((prev) => ({ ...prev, [all_product[index].id]: 0 }));
                 }
             }
         }
@@ -56,47 +57,71 @@ const ShopContextProvider = (props) => {
     }
 
 
-    const addToCart = (itemId) => {
+    const addToCart = async (itemId) => {
 
-        setCart((prev) => ({ ...prev, [itemId]: cart[itemId] + 1 }))
-        const localitem = JSON.parse(localStorage.getItem('cart'))
+        // setCart((prev) => ({ ...prev, [itemId]: cart[itemId] + 1 }))
+        // const localitem = JSON.parse(localStorage.getItem('cart'))
 
-        if (localitem) {
-            localitem[itemId] = localitem[itemId] + 1;
-            localStorage.setItem('cart', JSON.stringify(localitem));
-        } else {
-            cart[itemId] = cart[itemId] + 1;
-            localStorage.setItem('cart', JSON.stringify(cart));
+        // if (localitem) {
+        //     localitem[itemId] = localitem[itemId] + 1;
+        //     localStorage.setItem('cart', JSON.stringify(localitem));
+        // } else {
+        //     cart[itemId] = cart[itemId] + 1;
+        //     localStorage.setItem('cart', JSON.stringify(cart));
+        // }
+        if(!cartItems[itemId]){
+            setCartItems((prev)=>({...prev,[itemId]:1}))
+        }else{
+            setCartItems((prev)=>({...prev,[itemId]:prev[itemId]+1}))
+        }
+        if(token){
+            await axios.post('/api/cart/add',{itemId},{headers:{token}})
         }
     }
 
-    const removeFromCart = (itemId) => {
-        setCart((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
-        const LocalCartitem = JSON.parse(localStorage.getItem('cart'))
-        const cartValues = Object.values(LocalCartitem);
-        const oneItem = cartValues.reduce(function (a, b) { return a + b; }, 0);
-        if (oneItem === 1) localStorage.removeItem('cart')
+    const removeFromCart = async (itemId) => {
+        setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
+        if(token){
+            await axios.post('/api/cart/remove',{itemId},{headers:{token}})
+        }
+        // const LocalCartitem = JSON.parse(localStorage.getItem('cart'))
+        // const cartValues = Object.values(LocalCartitem);
+        // const oneItem = cartValues.reduce(function (a, b) { return a + b; }, 0);
+        // if (oneItem === 1) localStorage.removeItem('cart')
     }
+    const loadCartData = async (token) =>{
+        const response = await axios.post('/api/cart/get',{},{headers:{token}})
+        setCartItems(response.data.cartData)
+    }
+    useEffect(()=>{
+        const loadData = async ()=>{
+            if(localStorage.getItem("token")){
+                setToken(localStorage.getItem("token"))
+                await loadCartData(localStorage.getItem("token"));
+            }
+        }
+        loadData()
+    },[])
 
     const getTotalCartAmount = () => {
         let totalAmount = 0;
-        for (const item in cart) {
-            if (cart[item] > 0) {
+        for (const item in cartItems) {
+            if (cartItems[item] > 0) {
 
                 const itemInfo = all_product.find((product) => product.id === (item))
                 if (itemInfo !== undefined) {
-                    totalAmount += itemInfo.offerPrice * cart[item];
+                    totalAmount += itemInfo.offerPrice * cartItems[item];
                 }
             }
         }
         return totalAmount
     }
 
-    const getTotalCartItem = (cartItems) => {
+    const getTotalCartItem = () => {
         let totalItem = 0;
-        for (const item in cart) {
-            if (user.isLogdin && cart[item] > 0) {
-                totalItem += cart[item]
+        for (const item in cartItems) {
+            if (user.isLogdin && cartItems[item] > 0) {
+                totalItem += cartItems[item]
             }
         }
         return JSON.stringify(totalItem);
@@ -115,7 +140,7 @@ const ShopContextProvider = (props) => {
 
 
 
-    const contextValue = { getTotalCartItem, getTotalCartAmount, removeFromCart, deleteProduct, setProducts, cart, all_product, addToCart, user, setUser };
+    const contextValue = { getTotalCartItem, getTotalCartAmount, removeFromCart, deleteProduct, setProducts, cartItems, all_product, addToCart, user, setUser ,token,setToken };
 
 
 

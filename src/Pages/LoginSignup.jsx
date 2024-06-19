@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react'
 import './CSS/LoginSignup.css'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import {  useNavigate } from 'react-router-dom'
 import { ShopContext } from '../Context/ShopContext'
 
+
 export const LoginSignup = () => {
-  const { setUser, user } = useContext(ShopContext);
+  const { setUser,setToken } = useContext(ShopContext);
   
 
   const navigate = useNavigate();
@@ -41,9 +42,13 @@ export const LoginSignup = () => {
         email, password
       })
       
-      if (response.data.error) {
+      if(response.data.error) {
         alert(response.data.error);
         return;
+      }
+      if(response.data.success){
+        setToken(response.data.token)
+        localStorage.setItem("token",response.data.token)
       }
       setUser((prev)=>({...prev,isLogdin:true}))
       navigate('/');
@@ -86,6 +91,18 @@ export const LoginSignup = () => {
 
   }
 
+  // const ForgetPassword = async () =>{
+  //   try{
+  //       await axios.post('/forgot-password',{email:user.email})
+
+  //   }catch(error){
+  //     console.log(error);
+  //   }
+  // }
+  const handleClick = () =>{
+    navigate('/forgetpass')
+  }
+
   return (
     <div className='loginsignup'>
       <div className="loginsignup_container">
@@ -95,6 +112,7 @@ export const LoginSignup = () => {
           <input type="email" name='email' value={formData.email} onChange={changeHandler} placeholder='Email Address' />
           <input type="password" name='password' value={formData.password} onChange={changeHandler} placeholder='Password' />
           {state === 'Sign Up' ? <input type="password" value={confirmPass} onChange={(e) => setConfirmPass(() => (e.target.value))} placeholder='Comfirm Password' /> : <></>}
+          {state === 'Login' ? <button className='forget_btn' onClick={handleClick}>forget password</button> : <></>}
         </div>
         <button onClick={() => { state === "Login" ? login() : signup() }}>Continue</button>
         {state === "Sign Up"

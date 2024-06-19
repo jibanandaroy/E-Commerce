@@ -13,7 +13,7 @@ export const Navber = () => {
   const [menu, setMenu] = useState("shop")
   const {getTotalCartItem, user,setUser } = useContext(ShopContext);
   const menuRef = useRef();
-  
+
 
 
   const deopdown_toggle = (e) => {

@@ -8,26 +8,25 @@ import remove_icon from '../Assets/cart_cross_icon.png'
 import Modal from './Modal'
 
 export const CartItems = () => {
-    const { getTotalCartAmount, all_product, cart, removeFromCart, user } = useContext(ShopContext)
-    const [all_products, setAllProducts] = useState(all_product)
+    const { getTotalCartAmount, all_product, cartItems, removeFromCart, user } = useContext(ShopContext)
     const [modal, setModal] = useState(false);
 
      
 
 
-    useEffect(() => {
-        if (cart) {
-            const cartValues = Object.values(cart);
-            const hasItems = cartValues.some(quantity => quantity > 0);
-            if (!hasItems) {
-                const LocalCartitem = JSON.parse(localStorage.getItem('cart'))
-                if (LocalCartitem) setAllProducts(LocalCartitem);
-            } else {
-                localStorage.removeItem('cart')
-                localStorage.setItem('cart', JSON.stringify(cart));
-            }
-        }
-    }, [cart, setAllProducts])
+    // useEffect(() => {
+    //     if (cart) {
+    //         const cartValues = Object.values(cart);
+    //         const hasItems = cartValues.some(quantity => quantity > 0);
+    //         if (!hasItems) {
+    //             const LocalCartitem = JSON.parse(localStorage.getItem('cart'))
+    //             if (LocalCartitem) setAllProducts(LocalCartitem);
+    //         } else {
+    //             localStorage.removeItem('cart')
+    //             localStorage.setItem('cart', JSON.stringify(cart));
+    //         }
+    //     }
+    // }, [cart, setAllProducts])
 
     //modal
     const toggleModal = () => {
@@ -55,14 +54,14 @@ export const CartItems = () => {
             </div>
             <hr />
             {all_product.map((e) => {
-                if (user.isLogdin && cart && cart[e.id] > 0) {
+                if (user.isLogdin && cartItems && cartItems[e.id] > 0) {
                     return <div key={e.id}>
                         <div className="cartitem_format cartitem_format_main">
                             <img src={e.image} alt="" className='carticon_product_icon' />
                             <p>{e.name}</p>
                             <p className='cartitem_price'>${e.offerPrice}</p>
-                            <button className='cartitem_quantity'>{cart[e.id]}</button>
-                            <p className='cartitem_total'>${e.offerPrice * cart[e.id]}</p>
+                            <button className='cartitem_quantity'>{cartItems[e.id]}</button>
+                            <p className='cartitem_total'>${e.offerPrice * cartItems[e.id]}</p>
                             <img className='cartitem_remove_icon' src={remove_icon} onClick={() => { removeFromCart(e.id) }} alt="" />
                         </div>
                         <hr />
