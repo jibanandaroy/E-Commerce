@@ -27,7 +27,7 @@ const registerUser = async (req, res) => {
     try {
 
         if (!name) {
-            return res.json({
+            return res.json({ 
                 error: "name is require"
             })
         }
@@ -87,31 +87,31 @@ const loginUser = async (req, res) => {
                 error: "user not found"
             })
         }
-        const matched = await comparePassword(password, user.password);
+        
 
-        if(!matched){
-            return res.json({
-                error: "Please Enter correct password"
-            })
-        }
+        // if(!matched){
+        //     return res.json({
+        //         error: "Please Enter correct password"
+        //     })
+        // } 
         if(user.isVerified == false){
             return res.json({
                 error: "Mail is not verified"
             })
         }
-        
+        const matched = await comparePassword(password, user.password);
 
         if (matched) {
             //jwt........
-            jwt.sign({ email: user.email, name: user.name, id: user._id, role: user.role, isVerified:false }, process.env.JWT_SECRET, {}, (error, token) => {
+            jwt.sign({ email: user.email, name: user.name, id: user._id, role: user.role, isVerified:user.isVerified }, process.env.JWT_SECRET, {}, (error, token) => {
                 if (error) throw error;
                 res.cookie('token', token, {
                     expires: new Date(Date.now() + 2589200000),
                     httpOnly: true,
-                }).json(user);
+                }).json({success:true,token:token});
 
             })
-
+ 
         } else {
             return res.json({
                 error: "password is not matched"

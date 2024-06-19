@@ -17,9 +17,9 @@ const userSchema = new Schema({
         type: Boolean,
         default:false
     },
-    cartId:{
-        type:mongoose.Types.ObjectId,
-        ref:"Cart"
+    cartData:{
+        type:Object,
+        default:{}
     }
     
 })

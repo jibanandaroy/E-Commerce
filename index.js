@@ -41,7 +41,7 @@ app.use('/images',express.static('uploads'))
  
 app.use('/api/auth',authRoute);  
 app.use('/api/product',productRoute); 
-app.use('cart',cartRoute)
+app.use('/api/cart',cartRoute)
 // app.use('/api/order',orderRoute)
 
 
@@ -51,7 +51,7 @@ app.post('/forgot-password',passwordResetValidator,forgotPassword)
 app.get('/reset-password',resetPassword)
 app.post('/reset-password',updatePassword)
 app.get('/reset-success',resetSuccess)
-
+ 
 app.listen(port,()=>{    
     console.log("server is running ");
 })  

@@ -1,23 +1,50 @@
-const Cart = require('../models/cart')
 const User = require('../models/user')
 
-const addToCart = async (req,res) =>{
-    const {item,uid} = req.body;
- try{
-    const data = await Cart.create(item);
-    await User.findByIdAndUpdate({_id:uid},{$set:{cartId:data._id}})
-    return res.status(201).json({
-        success:true,
-        data,
-        message:"Create new cart"
-    })
- }catch(error){
-    return res.status(500).json({
-        success:false,
-        error,
-        message:"server site error"
-    })
- }
+//add items to user cart
+const addToCart = async (req, res) => {
+    try {
+        let userData = await User.findById(req.body.userId)
+        let cartData = await userData.cartData;
+        if (!cartData[req.body.itemId]) {
+            cartData[req.body.itemId] = 1;
+        } else {
+            cartData[req.body.itemId] += 1;
+        }
+        await User.findByIdAndUpdate(req.body.userId, { cartData })
+        res.json({ success: true, message: "Added To Cart" })
+    } catch (error) {
+        console.log(error);
+        res.json({success:false, message:"Error"})
+    }
+
 }
 
-module.exports = {addToCart}
+//remove item from user cart
+const removeFromCart = async (req, res) => {
+    try{
+        let userData = await User.findById(req.body.userId)
+        let cartData = await userData.cartData;
+        if (cartData[req.body.itemId]>0) {
+            cartData[req.body.itemId] -= 1;
+        }
+        await User.findByIdAndUpdate(req.body.userId, { cartData })
+        res.json({ success: true, message: "Remove from Cart" })
+
+    }catch(error){
+        console.log(error);
+        res.json({success:false,message:"Error"})
+    }
+}
+
+//fetch user cart data
+const getCart = async (req, res) => {
+    try{
+        let userData = await User.findById(req.body.userId)
+        let cartData = await userData.cartData;
+        res.json({success:true,cartData})
+    }catch(error){
+        console.log(error);
+        res.json({success:false, message:"Error"})
+    }
+}
+module.exports = { addToCart, removeFromCart, getCart }
