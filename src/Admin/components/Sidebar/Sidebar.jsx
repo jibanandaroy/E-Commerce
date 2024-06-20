@@ -20,7 +20,7 @@ const Sidebar = () => {
                     <p>Product List</p>
                 </div>
             </Link>
-            <Link to={'/listorder'} style={{ textDecoration: "none" }}>
+            <Link to={'/admin/listorder'} style={{ textDecoration: "none" }}>
                 <div className="sidebar_item orderlist">
                     <img src={listorder_icon} alt="" className='orderlist_icon'/>
                     <p>Order List</p>

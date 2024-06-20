@@ -17,6 +17,8 @@ import axios from 'axios';
 import Listproduct from './Admin/components/ListProduct/Listproduct';
 import { PrivateRoute } from './Route/PrivateRoute';
 import { ForgetPass } from './Pages/ForgetPass';
+import MyOrders from './Component/MyOrders/MyOrders';
+import ListOrder from './Admin/components/ListOrder/ListOrder';
 
 function App() {
   axios.defaults.baseURL = "http://localhost:8000";
@@ -31,7 +33,7 @@ function App() {
           <Route path='/' element={<Shop />}></Route>
           <Route path='/login' element={<LoginSignup />}></Route>
           <Route path='/forgetpass' element={<ForgetPass/>}></Route>
-          <Route element={<PrivateRoute />}>
+          {/* <Route element={<PrivateRoute />}> */}
             <Route path='/mens' element={<ShopCategory banner={men_banner} category="men" />}></Route>
             <Route path='/womens' element={<ShopCategory banner={women_banner} category="women" />}></Route>
             <Route path='/kids' element={<ShopCategory banner={kid_banner} category="kid" />}></Route>
@@ -42,8 +44,9 @@ function App() {
             <Route path='/admin' element={<Admin />}></Route>
             <Route path='/admin/addproduct' element={<AddProduct />}></Route>
             <Route path='/admin/listproduct' element={<Listproduct />}></Route>
-            
-          </Route>
+            <Route path='/admin/listorder' element={<ListOrder />}></Route>
+            <Route path='/myorders' element={<MyOrders/>}></Route>
+          {/* </Route> */}
 
         </Routes>
         <Footer />
