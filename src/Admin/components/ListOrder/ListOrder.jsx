@@ -15,6 +15,16 @@ const ListOrder = () => {
     }
   }
 
+  const statusHandle = async (e,orderId) =>{
+    const response = await axios.post('/api/order/status',{
+      orderId,
+      status:e.target.value
+    })
+    if(response.data.success){
+      await AllOrders();
+    }
+  }
+
   useEffect(()=>{
     AllOrders()
   },[])
@@ -40,7 +50,7 @@ const ListOrder = () => {
                   <p>{order.address}</p>
                   <p>Items: {order.items.length}</p>
                   <p>${order.amount}</p>
-                  <select name="" id="">
+                  <select onChange={(e)=>statusHandle(e,order._id)} value={order.status}>
                     <option value="Food Processing">Food Processing</option>
                     <option value="Out for Delivery">Out for Delivery</option>
                     <option value="Delivered">Delivered</option>
