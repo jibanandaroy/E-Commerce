@@ -3,8 +3,9 @@ const cors = require('cors');
 const router = express.Router();
 
 const cartMiddleware = require('../helper/cart')
-const {placeOrder} = require('../controllers/orderController')
+const {placeOrder,userOrders,listOrders} = require('../controllers/orderController')
 
 router.post('/place',cartMiddleware,placeOrder)
-
+router.post('/userorders',cartMiddleware,userOrders)
+router.get('/list',listOrders)
 module.exports = router;
