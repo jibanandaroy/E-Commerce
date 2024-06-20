@@ -11,24 +11,6 @@ export const CartItems = () => {
     const { getTotalCartAmount, all_product, cartItems, removeFromCart, user } = useContext(ShopContext)
     const [modal, setModal] = useState(false);
 
-     
-
-
-    // useEffect(() => {
-    //     if (cart) {
-    //         const cartValues = Object.values(cart);
-    //         const hasItems = cartValues.some(quantity => quantity > 0);
-    //         if (!hasItems) {
-    //             const LocalCartitem = JSON.parse(localStorage.getItem('cart'))
-    //             if (LocalCartitem) setAllProducts(LocalCartitem);
-    //         } else {
-    //             localStorage.removeItem('cart')
-    //             localStorage.setItem('cart', JSON.stringify(cart));
-    //         }
-    //     }
-    // }, [cart, setAllProducts])
-
-    //modal
     const toggleModal = () => {
         setModal(!modal);
     };
@@ -38,10 +20,7 @@ export const CartItems = () => {
     } else {
         document.body.classList.remove('active-modal')
     }
-
-    //payment
     
-
     return (
         <div className='cartitems'>
             <div className="cartitem_format_main">

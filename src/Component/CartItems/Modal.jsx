@@ -1,13 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { ShopContext } from '../../Context/ShopContext'
 import { createPaymentIntent } from './StripeMethod'
+import axios from 'axios'
 
 
-const Modal = ({ toggleModal}) => {
-    const { getTotalCartAmount, user } = useContext(ShopContext)
+const Modal = ({ toggleModal }) => {
+    const { getTotalCartAmount, user, all_product, cartItems,token } = useContext(ShopContext)
     const pk = 'pk_test_51NGbtWL6EDqw6EU4OxgKxZLfiULcOpePVkQ5Zg2giMNCTMzKTAA2jNQKa6HMcRKHwsGxMFvVgudR5YQElTp1o7m400zHjaVAMP'
     const [stripeElement, setStripeElement] = useState("");
     const [stripe, setStripe] = useState("");
+    const [data, setData] = useState({
+        address: ''
+    });
+    const changeHandler = (e) => {
+
+        setData({ ...data, address: e.target.value })
+
+    }
 
     useEffect(() => {
         let stripe = window.Stripe(pk)
@@ -22,6 +31,15 @@ const Modal = ({ toggleModal}) => {
         e.preventDefault();
 
         try {
+            let orderItems = [];
+            all_product.map((item) => {
+                if (cartItems[item.id] > 0) {
+                    let itemInfo = item;
+                    itemInfo["quantity"] = cartItems[item.id]
+                    orderItems.push(itemInfo)
+                }
+            })
+            
 
             const { paymentMethod, error } = await stripe.createPaymentMethod({
                 type: 'card',
@@ -32,7 +50,24 @@ const Modal = ({ toggleModal}) => {
                 },
             });
 
-            await createPaymentIntent(getTotalCartAmount(),paymentMethod);
+            await createPaymentIntent(getTotalCartAmount(), paymentMethod);
+
+            const response = await axios.post('/api/order/place',{
+                userId:user.id,
+                address:data.address,
+                items:orderItems,
+                amount:getTotalCartAmount()
+            },{headers:{token}})
+
+            if(response.data.error){
+                console.log(response.data.error);
+                return;
+            }
+            if(response.data.success){
+                alert(response.data.message)
+            }
+            
+
         } catch (error) {
             console.log(error.message);
         }
@@ -47,6 +82,8 @@ const Modal = ({ toggleModal}) => {
                     <form action="" onSubmit={handleSubmit}>
                         <h1>Payment</h1>
                         <p>{user.email}</p>
+                        <input type="text" required placeholder='Address' onChange={changeHandler} />
+                        <br />
                         <p className='tk'>${getTotalCartAmount()}</p>
                         <br />
                         <div id='cardElement'></div>

@@ -20,16 +20,16 @@ const ShopContextProvider = (props) => {
     const [cartItems, setCartItems] = useState({})
 
     
-    useEffect(() => {
-        if (!cartItems) {
-            for (let index = 0; index < all_product.length; index++) {
-                // cart[index] = 0;
-                if (all_product.length) {
-                    setCartItems((prev) => ({ ...prev, [all_product[index].id]: 0 }));
-                }
-            }
-        }
-    }, [all_product])
+    // useEffect(() => {
+    //     if (!cartItems) {
+    //         for (let index = 0; index < all_product.length; index++) {
+    //             // cart[index] = 0;
+    //             if (all_product.length) {
+    //                 setCartItems((prev) => ({ ...prev, [all_product[index].id]: 0 }));
+    //             }
+    //         }
+    //     }
+    // }, [all_product])
 
 
     useEffect(() => {

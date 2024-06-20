@@ -14,7 +14,7 @@ axiosClient.defaults.headers = {
 const confirmPaymentIntent = async (response) => {
 
   await axiosClient.post('/payment_intents/' + response.data.id + '/confirm', { return_url: "http://localhost:5173" })
-  alert('Payment Successful');
+  // alert('Payment Successful');
 
 }
 

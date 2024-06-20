@@ -48,11 +48,11 @@ const AddProduct = () => {
           'Content-Type': 'multipart/form-data'
         },
       });
-      console.log(response.data);
+      // console.log(response.data);
       if (response.data.error) {
         console.log(response.data.error);
       } else {
-        console.log(response.data);
+        // console.log(response.data);
         // const res = response.data;
         setProducts((prev)=>([...prev,response.data]))
         alert("successfully add a product")
