@@ -11,8 +11,9 @@ const ShopContextProvider = (props) => {
         role: '',
         id: '',
         isVerified: false,
-        isLogdin: false
+        isLogdin: false,
     });
+    const [loading , setLoading] = useState(true);
     const [all_product, setProducts] = useState([]);
     const [token, setToken] = useState('')
 
@@ -36,6 +37,7 @@ const ShopContextProvider = (props) => {
         const getProduct = async () => {
             await axios.get('/api/product/getproduct')
                 .then((res) => {
+                    // console.log(res.data)
                     setProducts(res.data);
                 })
                 .catch((error) => {
@@ -129,9 +131,23 @@ const ShopContextProvider = (props) => {
 
     useEffect(() => {
         const getUser = async () => {
-            const response = await axios.get('/api/auth/profile')
-            if (response.data) setUser({ ...response.data, isLogdin: true });
-            // console.log(response.data);
+            try{
+                setLoading(true)
+                const response = await axios.get('/api/auth/profile')
+                if(response.data.success){
+                    setUser({ ...response.data.data, isLogdin: true });
+                }else{
+                    setUser({data:null, isLogdin: false });
+    
+                }
+            }catch(error){
+                console.log(error)
+                setLoading(false);
+            }finally{
+                setLoading(false);
+            }
+          
+
         }
 
         getUser();
@@ -140,7 +156,7 @@ const ShopContextProvider = (props) => {
 
 
 
-    const contextValue = { getTotalCartItem, getTotalCartAmount, removeFromCart, deleteProduct, setProducts, cartItems, all_product, addToCart, user, setUser ,token,setToken };
+    const contextValue = { getTotalCartItem, getTotalCartAmount, removeFromCart, deleteProduct, setProducts, cartItems, all_product, addToCart, user, setUser ,token,setToken ,loading };
 
 
 

@@ -2,7 +2,7 @@ import {  useEffect, useState } from "react"
 import { Navigate, Outlet } from "react-router-dom"
 import axios from "axios"
 
-export const PrivateRoute = () => {
+export const AdminPrivateRoute = () => {
    const [user, setUser] = useState({
       data: null,
       loading: true,
@@ -24,7 +24,7 @@ export const PrivateRoute = () => {
    }, [])
 
    if (user.loading) return <div> Loading .... </div>
-   if (!user.data) return  <Navigate to={'/'} />
+   if (!user.role===1) return  <Navigate to={'/'} />
 
    return <Outlet />
 

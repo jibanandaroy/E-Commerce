@@ -12,6 +12,8 @@ const Modal = ({ toggleModal }) => {
     const [data, setData] = useState({
         address: ''
     });
+    console.log(user);
+
     const changeHandler = (e) => {
 
         setData({ ...data, address: e.target.value })
@@ -64,8 +66,8 @@ const Modal = ({ toggleModal }) => {
                 return;
             }
             if(response.data.success){
-                alert(response.data.message)
-            }
+                alert(response.data.message) 
+            } 
             
 
         } catch (error) {

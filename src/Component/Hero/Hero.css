@@ -1,6 +1,6 @@
 .Hero{
     height: 100vh;
-    background: linear-gradient(180deg, #fde1ff, #e1ffea22 60%);
+    background: linear-gradient(180deg, #f4bdf7, #aaddb922 60%);
     display: flex;
 }
 .Hero_left{
@@ -9,7 +9,7 @@
     flex-direction: column;
     justify-content: center;
     gap: 20px;
-    padding-left: 120px;
+    padding-left: 180px;
     line-height: 1.1;
     margin-bottom: 40px;
 }
@@ -44,6 +44,7 @@
     color: white;
     font-size: 22px;
     font-weight: 500;
+    cursor: pointer;
 }
 .Hero_right{
     flex: 1;
@@ -52,8 +53,8 @@
     justify-content: center;
 }
 .Hero_right img{
-    width: 450px;
-    height: 550px;
+    width: 500px;
+    height: 600px;
     margin-bottom: 40px;
 }
 @media(max-width:1280px){

@@ -2,9 +2,13 @@ import React from 'react'
 import './Hero.css'
 import hand_icon from '../Assets/hand_icon.png'
 import arrow_icon from '../Assets/arrow.png'
-import Hero_img from '../Assets/hero_image.png'
+import Hero_img from '../Assets/hero_img.png'
 
 export const Hero = () => {
+    const haldleClick = async () =>{
+        
+        window.scrollTo(0,2800)
+      }
   return (
     <div>
         <div className="Hero">
@@ -18,7 +22,7 @@ export const Hero = () => {
                     <p>collections</p>
                     <p>for everyone</p>
                 </div>
-                <div className="Hero_latest_btn">
+                <div className="Hero_latest_btn" onClick={haldleClick}>
                     <div>Latest Collections</div>
                     <img src={arrow_icon} alt="" />
                 </div>

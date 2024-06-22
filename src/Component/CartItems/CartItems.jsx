@@ -1,7 +1,5 @@
 
 import React, { useContext, useState } from 'react'
-
-
 import './CartItems.css'
 import { ShopContext } from '../../Context/ShopContext'
 import remove_icon from '../Assets/cart_cross_icon.png'
@@ -77,13 +75,6 @@ export const CartItems = () => {
                 )}
                     
                 </div>
-                {/* <div className="cartitem_promocode">
-                    <p>If you have a promo code, Enter it here</p>
-                    <div className="cartitem_promobox">
-                        <input type="text" placeholder='promo code' />
-                        <button>Submit</button>
-                    </div>
-                </div> */}
             </div>
         </div>
     )

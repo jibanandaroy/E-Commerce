@@ -6,7 +6,7 @@ import { ShopContext } from '../Context/ShopContext'
 
 
 export const LoginSignup = () => {
-  const { setUser,setToken } = useContext(ShopContext);
+  const { setUser,setToken,user } = useContext(ShopContext);
   
 
   const navigate = useNavigate();
@@ -18,11 +18,11 @@ export const LoginSignup = () => {
     name: "",
     email: "",
     password: "",
-    role: 10
+    role: 10,
   })
   const [data, setData] = useState({
     email: "",
-    password: ""
+    password: "",
   });
 
 
@@ -40,17 +40,19 @@ export const LoginSignup = () => {
     try {
       const response = await axios.post('/api/auth/login', {
         email, password
-      })
+      }) 
       
       if(response.data.error) {
         alert(response.data.error);
         return;
       }
       if(response.data.success){
+        setUser((prev)=>({...prev,isLogdin:true}))
         setToken(response.data.token)
         localStorage.setItem("token",response.data.token)
+       
       }
-      setUser((prev)=>({...prev,isLogdin:true}))
+      
       navigate('/');
 
     } catch (error) {
