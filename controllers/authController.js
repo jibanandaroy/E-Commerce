@@ -50,7 +50,7 @@ const registerUser = async (req, res) => {
                 error: "Email is already taken"
             })
         }
-
+ 
 
         const hashedPassword = await hashPassword(password);
         const user = await User.create({ name, email, role, password: hashedPassword, isVerified:false });
@@ -68,7 +68,6 @@ const registerUser = async (req, res) => {
         return res.status(201).json({
             success:true
         })
-
     
 
     }
@@ -77,23 +76,18 @@ const registerUser = async (req, res) => {
     }
 }
 const loginUser = async (req, res) => {
-
+        
 
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
+        console.log(user);
         if (!user) {
             return res.json({
                 error: "user not found"
             })
         }
-        
 
-        // if(!matched){
-        //     return res.json({
-        //         error: "Please Enter correct password"
-        //     })
-        // } 
         if(user.isVerified == false){
             return res.json({
                 error: "Mail is not verified"
@@ -125,18 +119,20 @@ const loginUser = async (req, res) => {
 }
 
 const getProfile = async (req, res) => {
-
+      
     const { token } = req.cookies;
     if (token) {
         jwt.verify(token, process.env.JWT_SECRET, {}, (error, user) => {
-            if (error) throw error
-            // console.log(user);
-            res.json(user);
+            if (error) return res.json({success :false })
+            res.json({
+            data:user,
+            success:true,
+        });
         })
 
     } else {
-        res.json(null)
-    }
+         return res.json({success :false })
+    }    
 }
 
 const getUsers = async (req, res) => {
@@ -173,7 +169,7 @@ const removeUser = async (req, res) => {
         const dUser = await User.deleteOne({ _id: id });
         res.json(dUser);
 
-    } catch (erro) {
+    } catch (error) {
         res.json({
             error: "User are not deleted",
         })
@@ -184,6 +180,7 @@ const logoutUser = async (req, res) => {
     try {
         res.clearCookie('token');
         res.json({
+            seccess:true,
             message: 'Logout successful',
         });
     } catch (error) {

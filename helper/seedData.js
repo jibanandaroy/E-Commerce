@@ -8,17 +8,20 @@ const userSeedData = [
     {
         'name':"Jibon Roy",
         'email':"jibonroy282@gmail.com",
-        'role':1
+        'role':1,
+        'isVerified':true
     },
     {
-        'name':"Mr x",
+        'name':"Mr x", 
         'email':"x@gmail.com",
-        'role':1
+        'role':1,
+        'isVerified':true
     },
     {
         'name':"Mr y",
         'email':"y@gmail.com",
-        'role':1
+        'role':1,
+        'isVerified':true
     }
 ];
 

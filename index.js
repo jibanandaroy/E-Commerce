@@ -40,7 +40,7 @@ app.use(express.urlencoded({extended:false}));
 app.use('/images',express.static('uploads'))
  
 app.use('/api/auth',authRoute);  
-app.use('/api/product',productRoute); 
+app.use('/api/product',productRoute);   
 app.use('/api/cart',cartRoute)
 app.use('/api/order',orderRoute)
 
