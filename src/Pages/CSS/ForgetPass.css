@@ -1,0 +1,31 @@
+.container{
+    height: 40vh;
+    text-align: center;
+}
+.container p{
+    margin-top: 50px;
+    font-size: 20px;
+    font-weight: 600;
+}
+.container input{
+    margin-top: 20px;
+    height: 30px;
+    width: 250px;
+    padding-left: 10px;
+    margin-right: 10px;
+    border: 1px solid rgb(119, 121, 128);
+    border-radius: 5px;
+    outline: none;
+}
+.container button{
+    height: 35px;
+    width: 80px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(116, 248, 144);
+    transition: .5s;
+    cursor: pointer;
+}
+.container button:hover{
+    background-color: rgb(44, 185, 75);
+}

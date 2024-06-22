@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react"
-
+import './CSS/ForgetPass.css'
 
 
 export const ForgetPass = () => {
@@ -36,7 +36,7 @@ export const ForgetPass = () => {
         <>
         <div className="container">
             <p>Please Enter your Email Address: </p>
-            <input type="email" name="Email" placeholder="Email"  onChange={changeHandler}/>
+            <input required type="email" name="Email" placeholder="Email"  onChange={changeHandler}/>
             <button onClick={ForgetPassword}>submit</button>
         </div>
         </>

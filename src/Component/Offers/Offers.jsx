@@ -11,6 +11,7 @@ export const Offers = () => {
   }
  
   return (
+    <div className="offers_main">
     <div className='offers'>
         <div className="offers_left">
             <h1>Exclusive</h1>
@@ -21,6 +22,7 @@ export const Offers = () => {
         <div className="offers_right">
             <img src={exclusive_image} alt="" />
         </div>
+    </div>
     </div>
   )
 }

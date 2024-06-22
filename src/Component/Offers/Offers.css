@@ -1,11 +1,16 @@
+.offers_main{
+    background: linear-gradient(180deg, #f5f8dc 0%, #4b659c22 60% );
+}
 .offers{
     width: 65%;
     height: 60vh;
     display: flex;
     margin: auto;
     padding: 0px 140px;
-    margin-bottom: 250px;
-    background: linear-gradient(180deg, #fde1ff 0%, #e1ffea22 60% );
+    margin-bottom: 0px;
+    background: linear-gradient(180deg, #f4bdf7, #7fc58e22 60%);
+
+    
 }
 .offers_left{
     flex: 1;

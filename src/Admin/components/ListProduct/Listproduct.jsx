@@ -16,9 +16,9 @@ const Listproduct = () => {
         <div className="listproduct_format_main">
           <p>Product</p>
           <p>Title</p>
-          <p>Old Price</p>
-          <p>New Price</p>
-          <p>Category</p>
+          <p className='price'>Old Price</p>
+          <p className='price'>New Price</p>
+          <p className='price'>Category</p>
           <p>Remove</p>
         </div>
         <div className="listproduct_allproduct">

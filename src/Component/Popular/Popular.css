@@ -3,12 +3,15 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    height: 110vh;
+    height: 90vh;
+    background: linear-gradient(180deg, #e8f3ec, #77be5622 60%);
+
 }
 .popular h1{
     color: #171717;
     font-size: 50px;
     font-weight: 600;
+    margin-top: 50px;
 }
 .popular hr{
     width: 200px;

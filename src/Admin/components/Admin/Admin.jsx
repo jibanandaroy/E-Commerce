@@ -1,6 +1,7 @@
 import React from 'react'
 import './Admin.css'
 import Sidebar from '../Sidebar/Sidebar'
+import AddProduct from '../AddProduct/AddProduct'
 
 
 
@@ -11,9 +12,7 @@ const Admin = () => {
     <div className='admin'>
     
         <Sidebar/>
-        <div className="blank">
-          
-        </div>
+        <AddProduct/>
         
         
     </div>

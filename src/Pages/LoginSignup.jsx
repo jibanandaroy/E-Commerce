@@ -111,12 +111,17 @@ export const LoginSignup = () => {
         <h1>{state}</h1>
         <div className="loginsignup_fields">
           {state === 'Sign Up' ? <input type="text" name='name' value={formData.name} onChange={changeHandler} placeholder='Your Name' /> : <></>}
+          {state==='Sign Up'?<hr />:<></>}
           <input type="email" name='email' value={formData.email} onChange={changeHandler} placeholder='Email Address' />
+          <hr />
           <input type="password" name='password' value={formData.password} onChange={changeHandler} placeholder='Password' />
+          <hr />
           {state === 'Sign Up' ? <input type="password" value={confirmPass} onChange={(e) => setConfirmPass(() => (e.target.value))} placeholder='Comfirm Password' /> : <></>}
+          {state==='Sign Up'?<hr />:<></>}
           {state === 'Login' ? <button className='forget_btn' onClick={handleClick}>forget password</button> : <></>}
+          
         </div>
-        <button onClick={() => { state === "Login" ? login() : signup() }}>Continue</button>
+        <button className='login_btn' onClick={() => { state === "Login" ? login() : signup() }}>{state==='Sign Up'?<span>Sign Up</span>:<span>Login</span>}</button>
         {state === "Sign Up"
           ? <p className="loginsignup_login">Already have an account? <span onClick={() => { setState("Login") }}>login here</span></p>
           : <p className="loginsignup_login">Create an account <span onClick={() => { setState("Sign Up") }}>Click here</span></p>

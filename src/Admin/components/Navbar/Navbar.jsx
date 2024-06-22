@@ -5,10 +5,7 @@ import navProfile from '../../../Component/Assets/nav-profile.svg'
 
 const Navbar = () => {
   return (
-    <div className='navbar'>
-        <img src={navlogo} alt="" className='nav_logo'/>
-        <img src={navProfile} alt="" className='nav_profile' />
-    </div>
+    <></>
   )
 }
 

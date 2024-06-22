@@ -32,11 +32,20 @@ const ListOrder = () => {
     <>
     <Sidebar/>
     <div className='list_order'>
-        <h3>All Orders</h3>
+        <h1>All Orders</h1>
+        <div className="listorder_format_main">
+          <p>Product</p>
+          <p>Address</p>
+          <p>Items</p>
+          <p>Price</p>
+          <p>Status</p>
+        </div>
         <div className="order_list">
+        <hr />
           {orders.map((order,index)=>{
             return(
-            <div key={index} className="order_item">
+              <>
+            <div key={index} className="order_item listorder_format_main">
                 
                   <p className='order_item_product'>
                     {order.items.map((item,index)=>{
@@ -56,6 +65,8 @@ const ListOrder = () => {
                     <option value="Delivered">Delivered</option>
                   </select>
                 </div>
+                <hr />
+                </>
             
           )})}
         </div>
