@@ -53,9 +53,7 @@ export const ProductDisplay = (props) => {
                     <div className="productdisplay_right_price_new">${product.offerPrice}</div>
                 </div>
                 <div className="productdisplay_right_description">
-                    A lightweight, usually knitted, pullover shirt, close-fitting and with
-                    a round neckline and short sleeves, worn as an undershirt or outer
-                    garment.
+                    {product.description}
                 </div>
                 <div className="productdisplay_right_size">
                     <h1>Select Size</h1>
@@ -66,6 +64,7 @@ export const ProductDisplay = (props) => {
                         <div>XL</div>
                         <div>XXL</div>
                     </div>
+                    
                 </div>
                 <button onClick={() => addToCart(productId) }>ADD TO CART</button>
                 <p className='productdisplay_right_category'><span>Category:</span> Women, T-Shirt, Crop Top</p>

@@ -1,4 +1,4 @@
-.add_product{
+.edit_product{
     box-sizing: border-box;
     width: 100%;
     max-width: 800px;
@@ -7,14 +7,15 @@
     background: white;
     position: relative;
     margin-left: 250px;
+    margin-bottom: 220px;
     
 }
-.addproduct_itemfield{
+.editproduct_itemfield{
     width: 100%;
     color: #7b7b7b;
     font-size: 16px;
 }
-.addproduct_itemfield input{
+.editproduct_itemfield input{
     box-sizing: border-box;
     width: 100%;
     height: 50px;
@@ -26,39 +27,13 @@
     font-family: 'Poopins';
     font-size: 14px;
 }
-.addproduct_itemfield textarea{
-    box-sizing: border-box;
-    width: 100%;
-    height: 50px;
-    border-radius: 4px;
-    padding-left: 15px;
-    border: 1px solid #c3c3c3;
-    outline: none;
-    color: #7b7b7b;
-    font-family: 'Poopins';
-    font-size: 14px;
-}
-.addproduct_price{
+.editproduct_price{
     display: flex;
     gap: 40px;
 }
-.addproduct_selectoer{
-    padding: 10px;
-    width: 100px;
-    height: 50px;
-    font-size: 14px;
-    color: #7b7b7b;
-    border: 1px solid #7b7b7b8b;
-    border-radius: 4px;
-}
-.addproduct_thumnail_img{
-    height: 120px;
-    width: 120px;
-    border-radius: 10px;
-    object-fit: contain;
-    margin: 10px 0px;
-}
-.addproduct_btn{
+
+
+.editproduct_btn{
     margin-top: 20px;
     width: 160px;
     height: 50px;
@@ -70,11 +45,11 @@
     font-size: 18px;
     font-weight: 600;
 }
-.addproduct_btn:hover{
+.editproduct_btn:hover{
     background-color: aqua;
 }
 @media(max-width:800px){
-    .add_product{
+    .edit_product{
         width: auto;
         padding: 30px;
         margin: 20px;

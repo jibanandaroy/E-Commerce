@@ -7,9 +7,10 @@ import { ShopContext } from '../../../Context/ShopContext';
 
 const AddProduct = () => {
   // const[image, setImage] = useState(false);
-  const { user,setProducts,all_product } = useContext(ShopContext)
+  const { user,setProducts } = useContext(ShopContext)
   const [data, setData] = useState({
     name: '',
+    description:'',
     userId: user.id,
     old_price: '',
     new_price: '',
@@ -37,6 +38,7 @@ const AddProduct = () => {
     formdata.append('image', data.image);
     formdata.append('userId', data.userId);
     formdata.append('name', data.name);
+    formdata.append('description', data.description);
     formdata.append('category', data.category);
     formdata.append('price', data.old_price);
     formdata.append('offerPrice', data.new_price);
@@ -74,6 +76,10 @@ const AddProduct = () => {
         <div className="addproduct_itemfield">
           <p>Product title</p>
           <input type="text" value={data.name} onChange={changeHandler} name='name' placeholder='Type here' />
+        </div>
+        <div className="addproduct_itemfield">
+          <p>Product Description</p>
+          <textarea value={data.description} onChange={changeHandler} name='description' id=""></textarea>
         </div>
         <div className="addproduct_price">
           <div className="addproduct_itemfield">

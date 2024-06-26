@@ -16,7 +16,7 @@
 }
 .listproduct_format_main{
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr 1fr 1fr .5fr;
+    grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr .6fr;
     gap: 10px;
     width: 100%;
     padding: 20px 0px;
@@ -28,7 +28,22 @@
 .listproduct_format{
     align-items: center;
     font-weight: 500;
-    grid-template-columns: 1fr 2.6fr 1.2fr 1.2fr 1fr .5fr;
+    grid-template-columns: 1fr 2.6fr 1.2fr 1.2fr 1fr 1.2fr .6fr;
+}
+.listproduct_format .btn{
+    width: 50px;
+    height: 30px;    
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    background-color: rgb(217, 9, 9);
+    transition: .5s;
+    cursor: pointer;
+}
+.listproduct_format .btn:hover{
+    background-color: red;
 }
 .listproduct_product_icon{
     height: 80px;

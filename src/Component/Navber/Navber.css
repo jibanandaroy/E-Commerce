@@ -12,10 +12,12 @@
     gap: 10px;
 
 }
+
 .nav_logo p{
     color: #171717;
     font-size: 38px;
     font-weight: 600;
+    margin-top: 10px;
 }
 .nav_menu{
     display: flex;
@@ -88,7 +90,7 @@
     cursor: pointer;
 }
 .navbar_profile img{
-    width: 40px;
+    width: 30px;
     
     
 }

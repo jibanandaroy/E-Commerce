@@ -16,7 +16,7 @@ export const Navber = () => {
   const [menu, setMenu] = useState("shop")
   const { getTotalCartItem, user, setUser } = useContext(ShopContext);
   const menuRef = useRef();
-  console.log(user);
+
 
   const deopdown_toggle = (e) => {
     menuRef.current.classList.toggle('nav_menu_visible');
@@ -58,7 +58,7 @@ export const Navber = () => {
       <Link style={{ textDecoration: 'none' }} to='/'>
         <div className="nav_logo">
           <img src={logo} alt="" />
-          <p>SHOPPER</p>
+          <p>DRESSIFY</p>
         </div>
       </Link>
       <img className='nav_dropdown' onClick={deopdown_toggle} src={dropdown_icon} alt="" />

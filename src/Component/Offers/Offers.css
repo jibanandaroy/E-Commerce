@@ -1,4 +1,6 @@
 .offers_main{
+    padding-top: 60px;
+    height: 70vh;
     background: linear-gradient(180deg, #f5f8dc 0%, #4b659c22 60% );
 }
 .offers{
@@ -9,8 +11,6 @@
     padding: 0px 140px;
     margin-bottom: 0px;
     background: linear-gradient(180deg, #f4bdf7, #7fc58e22 60%);
-
-    
 }
 .offers_left{
     flex: 1;
@@ -39,6 +39,12 @@
     font-weight: 500;
     margin-top: 30px;
     cursor: pointer;
+}
+.offers_left button:hover{
+    background: #4741ff;
+}
+.offers_right img{
+    height: 415px;
 }
 @media(max-width:1280px){
     .offers{

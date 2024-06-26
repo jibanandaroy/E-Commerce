@@ -6,8 +6,7 @@ import Hero_img from '../Assets/hero_img.png'
 
 export const Hero = () => {
     const haldleClick = async () =>{
-        
-        window.scrollTo(0,2800)
+        window.scrollTo(0,2050)
       }
   return (
     <div>

@@ -3,10 +3,9 @@
     flex-direction: column;
     padding-top: 30px;
     gap: 20px;
-    width: 100%;
     max-width: 250px;
-    height: 100vh;
-    background: white;
+    height: 78vh;
+    background: rgb(238, 237, 237);
     position: absolute;
 }
 .sidebar_item{
@@ -19,6 +18,10 @@
     background: #f6f6f6;
     gap: 20px;
     cursor: pointer;
+    transition: .5s;
+}
+.sidebar_item:hover{
+    background-color: aqua;
 }
 .orderlist{
     gap:15px;

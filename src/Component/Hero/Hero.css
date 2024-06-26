@@ -21,7 +21,7 @@
 }
 .Hero_left p{
     color: #171717;
-    font-size: 100px;
+    font-size: 90px;
     font-weight: 700;
 }
 .Hero_hand_icon{
@@ -37,15 +37,19 @@
     justify-content: center;
     align-items: center;
     gap: 15px;
-    width: 310px;
+    width: 280px;
     height: 70px;
     border-radius: 75px;
     margin-top: 30px;
     background: #ff4141;
     color: white;
-    font-size: 22px;
-    font-weight: 500;
+    font-size: 19px;
+    font-weight: 600;
     cursor: pointer;
+}
+.Hero_latest_btn:hover{
+    background: #4741ff;
+    
 }
 .Hero_right{
     flex: 1;
@@ -54,8 +58,8 @@
     justify-content: center;
 }
 .Hero_right img{
-    width: 500px;
-    height: 600px;
+    width: 450px;
+    height: 550px;
     margin-bottom: 40px;
 }
 @media(max-width:1280px){

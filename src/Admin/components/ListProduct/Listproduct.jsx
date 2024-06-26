@@ -3,10 +3,14 @@ import './Listproduct.css'
 import Sidebar from '../Sidebar/Sidebar'
 import { ShopContext } from '../../../Context/ShopContext'
 import cross_icon from '../../../Component/Assets/cross_icon.png'
+import { useNavigate } from 'react-router-dom'
 const Listproduct = () => {
-
+ const navigate = useNavigate()
   const { all_product, deleteProduct } = useContext(ShopContext)
 
+  const handleEdit = async (id) => {
+    navigate(`/admin/editProduct/${id}`)
+}
 
   return (
     <>
@@ -19,6 +23,7 @@ const Listproduct = () => {
           <p className='price'>Old Price</p>
           <p className='price'>New Price</p>
           <p className='price'>Category</p>
+          <p>Edit</p>
           <p>Remove</p>
         </div>
         <div className="listproduct_allproduct">
@@ -31,6 +36,7 @@ const Listproduct = () => {
               <p>{product.price}</p>
               <p>{product.offerPrice}</p>
               <p>{product.category}</p>
+              <button className='btn' onClick={() => handleEdit(product.id)}>Edit</button>
               <img className='listproduct_remove_icon' src={cross_icon} alt="" onClick={() => deleteProduct(product.id)} />
             </div>
               <hr />

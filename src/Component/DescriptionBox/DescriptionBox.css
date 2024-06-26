@@ -1,41 +1,32 @@
 .description_box{
-    margin: 120px 130px;
+    margin-left: 20px;
 }
-.descriptionbox_natigator{
-    display: flex;
-}
-.descriptionbox_nav_box{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    font-weight: 600;
-    width: 171px;
-    height: 70px;
-    border: 1px solid #d0d0d0;
-}
-.descriptionbox_nav_box.fade{
-    background: #FBFBFB;
-    color: #555;
-}
-.descriptionbox_description{
+.description_box form{
     display: flex;
     flex-direction: column;
-    gap: 25px;
-    border: 1px solid #D0D0D0;
-    padding: 48px;
-    padding-bottom: 70px;
 }
-@media(max-width:1280px){
-    .description_box{
-        margin: 60px;
-    }
+.description_box form label{
+    font-size: 20px;
+    font-weight: 600;
 }
-@media(max-width:1280px){
-    .description_box{
-        margin: 60px 20px;
-    }
-    .descriptionbox_description{
-        font-size: 14px;
-    }
+.description_box form textarea{
+    width: 300px;
+    height: 100px;
+}
+.description_box form button{
+    width: 80px;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: black;
+    background-color: aqua;
+    border: none;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .5s;
+}
+.description_box form button:hover{
+    color: white;
+   background-color: red;
 }

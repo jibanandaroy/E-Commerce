@@ -20,6 +20,7 @@ import { ForgetPass } from './Pages/ForgetPass';
 import MyOrders from './Component/MyOrders/MyOrders';
 import ListOrder from './Admin/components/ListOrder/ListOrder';
 import { AdminPrivateRoute } from './Route/AdminPrivateRoute';
+import EditProduct from './Admin/components/EditProduct/EditProduct';
 
 function App() {
   axios.defaults.baseURL = "http://localhost:8000";
@@ -49,6 +50,7 @@ function App() {
             <Route path='/admin/addproduct' element={<AddProduct />}></Route>
             <Route path='/admin/listproduct' element={<Listproduct />}></Route>
             <Route path='/admin/listorder' element={<ListOrder />}></Route>
+            <Route path='/admin/editProduct/:id' element={<EditProduct/>}></Route>
           </Route>
 
         </Routes>

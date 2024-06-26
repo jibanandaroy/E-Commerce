@@ -28,7 +28,7 @@ const MyOrders = () =>{
         <div className="my_orders">
             <h2>My Orders</h2>
             <div className='my_orders_format'>
-                <p>Product</p>
+                <p className='name'>Product</p>
                 <p>Price</p>
                 <p>Items</p>
                 <p>Delivery Status</p>
@@ -39,7 +39,7 @@ const MyOrders = () =>{
                 {data.map((order,index)=>{
                     return(
                         <>
-                        <div key={index} className="my_orders_order">
+                        <div key={index} className="my_orders_order ">
                             <p>{order.items.map((item,index)=>{
                                 if(index === order.items.length-1){
                                     return item.name+" x "+item.quantity

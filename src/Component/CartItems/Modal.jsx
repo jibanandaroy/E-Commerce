@@ -10,7 +10,8 @@ const Modal = ({ toggleModal }) => {
     const [stripeElement, setStripeElement] = useState("");
     const [stripe, setStripe] = useState("");
     const [data, setData] = useState({
-        address: ''
+        address: '',
+        method:"Stripe"
     });
     console.log(user);
 
@@ -57,6 +58,7 @@ const Modal = ({ toggleModal }) => {
             const response = await axios.post('/api/order/place',{
                 userId:user.id,
                 address:data.address,
+                method:data.method,
                 items:orderItems,
                 amount:getTotalCartAmount()
             },{headers:{token}})

@@ -50,9 +50,7 @@ export const LoginSignup = () => {
         setUser((prev)=>({...prev,isLogdin:true}))
         setToken(response.data.token)
         localStorage.setItem("token",response.data.token)
-       
       }
-      
       navigate('/');
 
     } catch (error) {
