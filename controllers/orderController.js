@@ -1,7 +1,8 @@
 const Order = require('../models/order');
+const Payment = require('../models/payment')
 
 const placeOrder = async (req, res) => {
-    const { userId, items, amount, address } = req.body
+    const { userId, items, amount, address,method } = req.body
     try {
         const obj = {
             userId,
@@ -9,7 +10,12 @@ const placeOrder = async (req, res) => {
             amount,
             address
         }
+        const paymentObj = {
+            userId,
+            method
+        }
         const order = await Order.create(obj);
+        const payment = await Payment.create(paymentObj);
         res.json({ success: true, message: "Order Successful" })
     } catch (error) {
         console.log(error);

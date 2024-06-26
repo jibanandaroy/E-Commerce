@@ -7,6 +7,7 @@ const authRoute = require('./routes/authRoute.js');
 const productRoute = require('./routes/productRoute.js'); 
 const cartRoute = require('./routes/cartRoute.js'); 
 const orderRoute = require('./routes/orderRoute.js')
+const reviewRoute = require('./routes/reviewRoute.js')
 const {mailVerification,forgotPassword,resetPassword,updatePassword,resetSuccess} = require('./controllers/authController.js')
 const cors = require('cors');  
 const{passwordResetValidator} = require('./helper/validation.js')
@@ -28,10 +29,7 @@ app.use(
         origin:'http://localhost:3000'
         })
         )
-        
-        // app.set('views','./views');
-        
-        //middleware  
+         
 app.set('view engine','ejs');
   
 app.use(express.json()); 
@@ -43,7 +41,7 @@ app.use('/api/auth',authRoute);
 app.use('/api/product',productRoute);   
 app.use('/api/cart',cartRoute)
 app.use('/api/order',orderRoute)
-
+app.use('/api/review',reviewRoute)
 
 //mail verification and forget password
 app.get('/mail-verification',mailVerification)

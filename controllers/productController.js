@@ -5,12 +5,17 @@ const fs = require('fs');
 const { json } = require('express');
 
 const addProduct = async (req, res) => {
-     const { name, userId, price, offerPrice, category } = req.body;
+     const { name,description, userId, price, offerPrice, category } = req.body;
 
      try {
           if (!name) {
                return res.json({
                     error: "name is required"
+               })
+          }
+          if (!description) {
+               return res.json({
+                    error: "description is required"
                })
           }
           
@@ -31,6 +36,7 @@ const addProduct = async (req, res) => {
        }
           const obj = {
                name,
+               description,
                userId,
                price:parseInt(price),
                offerPrice:parseInt(offerPrice),
@@ -42,7 +48,7 @@ const addProduct = async (req, res) => {
           obj.id=product._id
           res.json(obj);
 
-     } catch (error) {
+     } catch (error) { 
           res.json({
                error: "product is not added"
           })
@@ -57,6 +63,7 @@ const getProduct = async (req, res) => {
           const obj = {
                'id': value._id,
                'name': value.name,
+               'description':value.description,
                'userId': value.userId,
                'price': value.price,
                'offerPrice': value.offerPrice,
@@ -98,28 +105,31 @@ const deleteProduct = async (req, res) => {
      }
 }
 
-// const updateProduct = async (req, res) => {
-//      const { name, description, price, id } = req.body;
-//      try {
-//           const obj = {};
-//           if (name) {
-//                obj.name = name;
-//           }
-//           if (description) {
-//                obj.description = description;
-//           }
-//           if (price) {
-//                obj.price = price;
-//           }
-//           const updateProduct = await Product.updateOne({ _id: id }, { $set: obj })
-//           res.json(updateProduct);
+const updateProduct = async (req, res) => {
+     const { name, description, price, offerPrice,id } = req.body;
+     try {
+          const obj = {};
+          if (name) {
+               obj.name = name;
+          }
+          if (description) {
+               obj.description = description;
+          }
+          if (price) {
+               obj.price = price;
+          }
+          if (offerPrice) {
+               obj.offerPrice = offerPrice;
+          }
+          const updateProduct = await Product.updateOne({ _id: id }, { $set: obj })
+          res.json(updateProduct);
 
-//      } catch (error) {
-//           res.json({
-//                error: error
-//           })
-//      }
-// }
+     } catch (error) {
+          res.json({
+               error: error
+          })
+     }
+}
 
 
 const newCollection = async (req,res) =>{
@@ -133,4 +143,4 @@ const popularInWomen = async (req,res) =>{
      res.json(popular_in_women);
 }
 
-module.exports = { addProduct, getProduct, deleteProduct, productGet,newCollection,popularInWomen}
+module.exports = { addProduct, getProduct, deleteProduct, productGet,updateProduct,newCollection,popularInWomen}
