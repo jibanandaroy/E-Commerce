@@ -10,14 +10,10 @@ const MyOrders = () =>{
     const {token,user} = useContext(ShopContext)
     const [data, setData] = useState([]);
    
-
     const fetchOrders = async () =>{
         const response = await axios.post('/api/order/userorders',{},{headers:{token}})
         setData(response.data.data)
-        
-
     }
-
     useEffect(()=>{
         if(token){
             fetchOrders()

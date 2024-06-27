@@ -30,3 +30,23 @@
     color: white;
    background-color: red;
 }
+.description_box h3{
+    margin-top: 30px;
+} 
+.all_reviewList{
+    width: 100%;
+    height: 300px;
+    overflow-y: scroll;
+}
+.all_review{
+    /* margin-top: 30px; */
+    margin-left: 50px;
+    
+}
+.all_review p{
+    margin-left: 20px;
+}
+.all_review hr{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
