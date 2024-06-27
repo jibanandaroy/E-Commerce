@@ -1,10 +1,10 @@
 const Review = require('../models/review')
 
 const addReview = async (req, res) => {
-    const { userId, productId, review } = req.body
+    const { name, productId, review } = req.body
     try{
         const obj = {
-            userId,
+            name,
             productId,
             review
         }
@@ -29,7 +29,7 @@ const getReview = async (req, res) => {
         reviews.map((data, ind) => {
 
             let obj = {
-                userId: data.userId,
+                name: data.name,
                 productId: data.productId,
                 review:data.review
             }

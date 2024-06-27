@@ -2,10 +2,7 @@ const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
 const reviewSchema = new Schema({
-    userId:{
-        type:mongoose.Types.ObjectId,
-        ref:'User'
-    },
+    name:String,
     productId:String,
     review:String,
     date:{type:Date,default:Date.now()},
