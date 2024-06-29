@@ -24,8 +24,8 @@ export const AdminPrivateRoute = () => {
    }, [])
 
    if (user.loading) return <div> Loading .... </div>
-   if (!user.role===1) return  <Navigate to={'/'} />
+   if (user?.data?.role===1) return <Outlet />
 
-   return <Outlet />
+   return <Navigate to={'/'} />
 
 }

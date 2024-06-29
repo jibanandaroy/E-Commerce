@@ -56,18 +56,18 @@ export const ProductDisplay = (props) => {
                     {product.description}
                 </div>
                 <div className="productdisplay_right_size">
-                    <h1>Select Size</h1>
-                    <div className="productdisplay_right_sizes" >
+                    <h1>Free Size</h1>
+                    {/* <div className="productdisplay_right_sizes" >
                         <div>S</div>
                         <div>M</div>
                         <div>L</div>
                         <div>XL</div>
                         <div>XXL</div>
-                    </div>
+                    </div> */}
                     
                 </div>
                 <button onClick={() => addToCart(productId) }>ADD TO CART</button>
-                <p className='productdisplay_right_category'><span>Category:</span> Women, T-Shirt, Crop Top</p>
+                <p className='productdisplay_right_category'><span>Category:</span> {product.category}, T-Shirt, Crop Top</p>
                 <p className='productdisplay_right_category'><span>Tags:</span> Modern, Latest</p>
             </div>
         </div>

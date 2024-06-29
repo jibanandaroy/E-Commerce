@@ -28,7 +28,7 @@ const MyOrders = () =>{
                 <p>Price</p>
                 <p>Items</p>
                 <p>Delivery Status</p>
-                <p> </p>
+                
             </div>
             <div className="container">
                 <hr />
@@ -46,7 +46,7 @@ const MyOrders = () =>{
                             <p>${order.amount}.00</p>
                             <p>Items: {order.items.length}</p>
                             <p><span>&#x25cf;</span> <b>{order.status}</b></p>
-                            <button>Track Order</button>
+                            {/* <button>Track Order</button> */}
                         </div>
                         <hr />
                         </>

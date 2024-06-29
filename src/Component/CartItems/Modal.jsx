@@ -16,9 +16,7 @@ const Modal = ({ toggleModal }) => {
     console.log(user);
 
     const changeHandler = (e) => {
-
         setData({ ...data, address: e.target.value })
-
     }
 
     useEffect(() => {
@@ -43,7 +41,6 @@ const Modal = ({ toggleModal }) => {
                 }
             })
             
-
             const { paymentMethod, error } = await stripe.createPaymentMethod({
                 type: 'card',
                 card: stripeElement,

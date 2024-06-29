@@ -8,7 +8,6 @@ import { ShopContext } from '../Context/ShopContext'
 export const LoginSignup = () => {
   const { setUser,setToken,user } = useContext(ShopContext);
   
-
   const navigate = useNavigate();
   const [state, setState] = useState("Login")
 
@@ -25,14 +24,11 @@ export const LoginSignup = () => {
     password: "",
   });
 
-
   const changeHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
     setData({ ...formData, [e.target.name]: e.target.value })
-    
   }
-
-
+  
   const login = async (e) => {
     // e.preventDefault();
 

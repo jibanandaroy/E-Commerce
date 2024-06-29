@@ -98,6 +98,9 @@
         height: 40px;
         font-size: 16px;
     }
+    .offers_right img{
+        height: 270px;
+    }
 }
 @media(max-width:800px){
     .offers{
@@ -151,5 +154,8 @@
         height: 30px;
         font-size: 11px;
         margin-top: 10px;
+    }
+    .offers_right img{
+        height: 170px;
     }
 }

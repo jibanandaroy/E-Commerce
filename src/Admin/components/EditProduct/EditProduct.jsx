@@ -53,7 +53,7 @@ const EditProduct = () => {
 
 
     return (
-        <div>
+        <>
             <Sidebar/>
             <div className='edit_product'>
                 <div className="editproduct_itemfield">
@@ -82,7 +82,7 @@ const EditProduct = () => {
 
 
             </div>
-        </div>
+        </>
     )
 }
 

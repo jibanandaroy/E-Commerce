@@ -5,7 +5,6 @@ import { Offers } from '../Component/Offers/Offers'
 import { NewCollections } from '../Component/NewCollections/NewCollections'
 import { ShopContext } from '../Context/ShopContext'
 
-
 export const Shop = () => {
   const { user } = useContext(ShopContext);
   const[reload,setReload] = useState(false)
@@ -21,7 +20,7 @@ export const Shop = () => {
       <Popular />
       <Offers />
       <NewCollections />
-      {/* <NewsLetter /> */}
+      
     </div>
   )
 }

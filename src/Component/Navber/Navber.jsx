@@ -1,8 +1,8 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import './Navber.css'
 import logo from '../Assets/logo.png'
 import cart_icon from '../Assets/cart_icon.png'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { ShopContext } from '../../Context/ShopContext'
 import dropdown_icon from '../Assets/nav_dropdown.png'
 import profile_icon from '../Assets/profile.svg'
@@ -10,12 +10,19 @@ import dashboard_icon from '../Assets/dashboard.svg'
 import logout_icon from '../Assets/logout.svg'
 import axios from 'axios';
 
-
 export const Navber = () => {
   const navigate = useNavigate();
   const [menu, setMenu] = useState("shop")
   const { getTotalCartItem, user, setUser } = useContext(ShopContext);
   const menuRef = useRef();
+  const search = useLocation()
+  // console.log(typeof(user.role));
+
+  useEffect(() => {
+    if (search.pathname === '/mens' || search.pathname === '/womens' || search.pathname === '/kids') {
+      setMenu(search.pathname.split('/')[1])
+    }
+  }, [])
 
 
   const deopdown_toggle = (e) => {
@@ -29,7 +36,6 @@ export const Navber = () => {
     }
     else {
       navigate('/myorders')
-
     }
   }
 
@@ -47,11 +53,7 @@ export const Navber = () => {
     } catch (error) {
       console.log(error);
     }
-
-
-
   }
-
 
   return (
     <div className='navber'>
@@ -63,15 +65,14 @@ export const Navber = () => {
       </Link>
       <img className='nav_dropdown' onClick={deopdown_toggle} src={dropdown_icon} alt="" />
       <ul ref={menuRef} className='nav_menu'>
-        <li onClick={() => { setMenu("shop") }}> <Link style={{ textDecoration: 'none' }} to='/'>Shop</Link> {menu === "shop" ? <hr /> : <></>}</li>
-        <li onClick={() => { setMenu("mens") }}> <Link style={{ textDecoration: 'none' }} to='/mens'>Men</Link> {menu === "mens" ? <hr /> : <></>}</li>
-        <li onClick={() => { setMenu("womens") }}> <Link style={{ textDecoration: 'none' }} to='/womens'>Women</Link> {menu === "womens" ? <hr /> : <></>}</li>
-        <li onClick={() => { setMenu("kids") }}> <Link style={{ textDecoration: 'none' }} to='/kids'>Kids</Link> {menu === "kids" ? <hr /> : <></>}</li>
+        <li> <Link style={{ textDecoration: 'none' }} to='/'>Shop</Link> {menu === "shop" ? <hr /> : <></>}</li>
+        <li> <Link style={{ textDecoration: 'none' }} to='/mens'>Men</Link> {menu === "mens" ? <hr /> : <></>}</li>
+        <li> <Link style={{ textDecoration: 'none' }} to='/womens'>Women</Link> {menu === "womens" ? <hr /> : <></>}</li>
+        <li> <Link style={{ textDecoration: 'none' }} to='/kids'>Kids</Link> {menu === "kids" ? <hr /> : <></>}</li>
       </ul>
       <div className="nav_login_cart" >
         <Link to='/cart'><img src={cart_icon} alt="" /></Link>
         <div className="nav_cart_count">{getTotalCartItem()}</div>
-        {/* {(user.isLogdin) ? <button onClick={handleLogout}>Logout</button> : <button onClick={()=>(navigate('/login'))}>Login</button>} */}
         {(!user.isLogdin) ? <button onClick={() => (navigate('/login'))}>Login</button>
           : <div className='navbar_profile'>
             <img src={profile_icon} alt="" />

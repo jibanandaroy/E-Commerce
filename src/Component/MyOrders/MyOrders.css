@@ -22,7 +22,7 @@
     color: #454545;
     font-size: 15px;
     font-weight: 600;
-    grid-template-columns: 2.7fr 1.1fr 1fr 1fr 0.8fr;
+    grid-template-columns: 3fr 1.3fr 1fr .9fr;
 }
 .my_orders_format .name{
     margin-left: 50px;
@@ -39,7 +39,7 @@
 }
 .my_orders_order{
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr .5fr ;
+    grid-template-columns: 2.2fr 1fr 1.2fr .8fr;
     align-items: center;
     gap: 30px;
     font-size: 17px;
@@ -59,14 +59,32 @@
     font-size: 16px;
     font-weight: 600;
 }
-.my_orders_order button{
-    font-size: 17px;
-    font-weight: 600;
-    border: none;
-    width: 150px;
-    /* padding: 20px 10px; */
-    border-radius: 5px;
-    background-color: #ffb2b2;
-    cursor: pointer;
-    color: #454545;
+
+
+@media(max-width:1024px){
+    .my_orders_format p{
+        font-size: 16px;
+    }
+    .my_orders_order p{
+        font-size: 13px;
+    }
+    .my_orders_order p b{
+        font-size: 13px;
+    }
+}
+@media(max-width:800px){
+    .my_orders_format{
+        grid-template-columns: 3fr 1fr 1fr 1fr;
+    }
+    .my_orders_order{
+        grid-template-columns: 2.6fr 1fr 1fr 1fr;
+    }
+}
+@media(max-width:500px){
+    .my_orders_format{
+        grid-template-columns: 2.2fr 1fr 1fr 1fr;
+    }
+    .my_orders_order{
+        grid-template-columns: 2.6fr 1fr 1fr 1fr;
+    }
 }

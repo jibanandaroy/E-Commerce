@@ -73,11 +73,17 @@
 .addproduct_btn:hover{
     background-color: aqua;
 }
+@media(max-width:1024px){
+    .add_product{
+        width: auto;
+        
+    }
+}
 @media(max-width:800px){
     .add_product{
         width: auto;
         padding: 30px;
         margin: 20px;
-        margin-top: 80px;
+        margin-top: 120px;
     }
 }

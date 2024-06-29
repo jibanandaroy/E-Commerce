@@ -14,7 +14,6 @@ export const Popular = () => {
           console.log(error);
         })
     }, [])
-    // console.log(data_product);
 
   return (
     <div className='popular'>

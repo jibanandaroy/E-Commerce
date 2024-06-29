@@ -1,6 +1,8 @@
 import {  useEffect, useState } from "react"
 import { Navigate, Outlet } from "react-router-dom"
 import axios from "axios"
+import ReactLoading from 'react-loading';
+import './RouteCSS/PrivateRoute.css'
 
 export const PrivateRoute = () => {
    const [user, setUser] = useState({
@@ -22,8 +24,8 @@ export const PrivateRoute = () => {
 
       })()
    }, [])
-
-   if (user.loading) return <div> Loading .... </div>
+   if (user.loading) return <Outlet />
+   // if (user.loading) return <div className="loader"><ReactLoading type={"spinningBubbles"} color={"black"} height={467} width={150} /></div> 
    if (!user.data) return  <Navigate to={'/'} />
 
    return <Outlet />
