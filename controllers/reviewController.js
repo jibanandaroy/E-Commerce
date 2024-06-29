@@ -34,7 +34,6 @@ const getReview = async (req, res) => {
                 review:data.review
             }
             Data.push(obj);
-
         })
 
         res.json({

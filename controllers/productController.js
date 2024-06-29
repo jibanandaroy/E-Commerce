@@ -44,7 +44,7 @@ const addProduct = async (req, res) => {
                image: req.file.filename
           }
           const product = await Product.create(obj);
-          obj.image = `http://localhost:8000/images/${product.image}`
+          obj.image = `${process.env.APP_DOMAIN}/images/${product.image}`
           obj.id=product._id
           res.json(obj);
 
@@ -68,7 +68,7 @@ const getProduct = async (req, res) => {
                'price': value.price,
                'offerPrice': value.offerPrice,
                'category': value.category,
-               'image': `http://localhost:8000/images/${value.image}`
+               'image': `${process.env.APP_DOMAIN}/images/${value.image}`
 
           }
           newProducts.push(obj)
@@ -100,7 +100,7 @@ const deleteProduct = async (req, res) => {
 
      } catch (error) {
           res.json({
-               error: "Doctor is not Deleted",
+               error: "Product is not Deleted"
           })
      }
 }
