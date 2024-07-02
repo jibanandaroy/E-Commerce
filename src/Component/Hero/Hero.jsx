@@ -2,7 +2,7 @@ import React from 'react'
 import './Hero.css'
 import hand_icon from '../Assets/hand_icon.png'
 import arrow_icon from '../Assets/arrow.png'
-import Hero_img from '../Assets/hero_img.png'
+import Hero_img from '../Assets/hero-img.png'
 
 export const Hero = () => {
     const haldleClick = async () => {

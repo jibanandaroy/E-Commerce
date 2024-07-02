@@ -1,6 +1,6 @@
 .Hero {
     height: 90vh;
-    background: linear-gradient(180deg, #f4bdf7, #7fc58e22 60%);
+    background: linear-gradient(180deg, #feeaff, #7fc58e22 60%);
     display: flex;
 
 }
@@ -67,8 +67,8 @@
 }
 
 .Hero_right img {
-    width: 450px;
-    height: 550px;
+    width: 500px;
+    height: 500px;
     margin-bottom: 40px;
 }
 

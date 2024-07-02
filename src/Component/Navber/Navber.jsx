@@ -65,10 +65,10 @@ export const Navber = () => {
       </Link>
       <img className='nav_dropdown' onClick={deopdown_toggle} src={dropdown_icon} alt="" />
       <ul ref={menuRef} className='nav_menu'>
-        <li> <Link style={{ textDecoration: 'none' }} to='/'>Shop</Link> {menu === "shop" ? <hr /> : <></>}</li>
-        <li> <Link style={{ textDecoration: 'none' }} to='/mens'>Men</Link> {menu === "mens" ? <hr /> : <></>}</li>
-        <li> <Link style={{ textDecoration: 'none' }} to='/womens'>Women</Link> {menu === "womens" ? <hr /> : <></>}</li>
-        <li> <Link style={{ textDecoration: 'none' }} to='/kids'>Kids</Link> {menu === "kids" ? <hr /> : <></>}</li>
+        <li> <Link style={{ textDecoration: 'none' }} onClick={()=>setMenu("shop")} to='/'>Shop</Link> {menu === "shop" ? <hr /> : <></>}</li>
+        <li> <Link style={{ textDecoration: 'none' }} onClick={()=>setMenu("mens")} to='/mens'>Men</Link> {menu === "mens" ? <hr /> : <></>}</li>
+        <li> <Link style={{ textDecoration: 'none' }} onClick={()=>setMenu("womens")} to='/womens'>Women</Link> {menu === "womens" ? <hr /> : <></>}</li>
+        <li> <Link style={{ textDecoration: 'none' }} onClick={()=>setMenu("kids")} to='/kids'>Kids</Link> {menu === "kids" ? <hr /> : <></>}</li>
       </ul>
       <div className="nav_login_cart" >
         <Link to='/cart'><img src={cart_icon} alt="" /></Link>
