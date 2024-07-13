@@ -1,30 +1,43 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import './Hero.css'
-import hand_icon from '../Assets/hand_icon.png'
+// import hand_icon from '../Assets/hand_icon.png'
 import arrow_icon from '../Assets/arrow.png'
 import Hero_img from '../Assets/hero-img.png'
-
+import { init } from 'ityped'
 export const Hero = () => {
     const haldleClick = async () => {
-        window.scrollTo(0, 2050)
+        window.scrollTo({
+            top: 2050,
+            behavior: 'smooth'
+          });
     }
+
+    const textRef = useRef();
+
+  useEffect(() => {
+    init(textRef.current, {
+      showCursor: true,
+      backDelay: 1500,
+      backSpeed:60,
+      strings: ["Men","Women", "Kids"]
+    });
+  }, []);
     return (
         <div>
             <div className="Hero">
                 <div className="Hero_left">
-                    <h2>New ARRIVALS ONLY</h2>
-                    <div>
-                        <div className="Hero_hand_icon">
-                            <p>new</p>
-                            <img src={hand_icon} alt="" />
-                        </div>
-                        <p>collections</p>
-                        <p>for everyone</p>
+                    <h2>New Arrivals Only</h2>
+                    <div className='hero_title'>
+                        <p>New Collections</p>
+                        <p>
+                            For <span ref={textRef}></span>
+                        </p>
                     </div>
                     <div className="Hero_latest_btn" onClick={haldleClick}>
-                        <div>Latest Collections</div>
-                        <img src={arrow_icon} alt="" />
+                        <button>Latest Collections</button>
+                        <button>Contact us </button>
                     </div>
+                    
                 </div>
                 <div className="Hero_right">
                     <img src={Hero_img} alt="" />

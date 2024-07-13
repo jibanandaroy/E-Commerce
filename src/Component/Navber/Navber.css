@@ -59,11 +59,16 @@
     cursor: pointer;
     transition: .5s;
 }
-.nav_login_cart button:hover{
-    background: rgb(247, 202, 79);
+.nav_login_cart button{
+    font-size: 20px;
+    font-weight: 550;
+    border: none;
+    color: rgb(255, 255, 255);
+    background: #0ee4d6;
 }
-.nav_login_cart button:active{
-    background: #f3f3f3;
+.nav_login_cart button:hover{
+    color: black;
+    background: #18f45a;
 }
 .nav_cart_count{
     width: 22px;
@@ -86,12 +91,9 @@
     cursor: pointer;
 }
 .navbar_profile img{
-    width: 30px;
-    
-    
+    width: 30px;   
 }
-.nav_profile_dropdown{
-    
+.nav_profile_dropdown{  
     position: absolute;
     display: none;
     right: 0;

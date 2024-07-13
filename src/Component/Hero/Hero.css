@@ -1,7 +1,8 @@
 .Hero {
     height: 90vh;
-    background: linear-gradient(180deg, #feeaff, #7fc58e22 60%);
+    /* background: linear-gradient(180deg, #feeaff, #7fc58e22 60%); */
     display: flex;
+    background-color: #0b0683;
 
 }
 
@@ -17,18 +18,21 @@
 }
 
 .Hero_left h2 {
-    color: #090909;
+    color: #fcfbfb;
     font-size: 26px;
     font-weight: 600;
 }
-
-.Hero_left p {
-    color: #171717;
-    font-size: 90px;
-    font-weight: 700;
+.hero_title p {
+    color: #ffffff;
+    font-size: 80px;
+    font-weight: 600;
+    margin-top: 20px;
+}
+.hero_title span{
+    color: rgb(255, 117, 117);
 }
 
-.Hero_hand_icon {
+/* .Hero_hand_icon {
     display: flex;
     align-items: center;
     gap: 20px;
@@ -36,26 +40,30 @@
 
 .Hero_hand_icon img {
     width: 105px;
-}
-
-.Hero_latest_btn {
+} */
+.Hero_latest_btn{
     display: flex;
+    gap: 15px;
+}
+.Hero_latest_btn button{
     justify-content: center;
     align-items: center;
-    gap: 15px;
-    width: 280px;
-    height: 70px;
-    border-radius: 75px;
-    margin-top: 30px;
+    width: 190px;
+    height: 60px;
+    border: none;
+    border-radius: 10px;
+    margin-top: 20px;
     background: #ff4141;
     color: white;
     font-size: 19px;
     font-weight: 600;
     cursor: pointer;
+    transition: .5s;
 }
 
-.Hero_latest_btn:hover {
-    background: #4741ff;
+.Hero_latest_btn button:hover {
+    background: #ffffff;
+    color: black;
 
 }
 

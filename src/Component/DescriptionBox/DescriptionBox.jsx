@@ -53,7 +53,7 @@ export const DescriptionBox = (props) => {
     <div className='description_box'>
       <form className='' action="" onSubmit={handleSubmit}>
         <label htmlFor="">Review</label>
-        <textarea value={data.review} onChange={changeHandler} name="review" id="" required></textarea>
+        <textarea value={data.review} onChange={changeHandler} name="review" placeholder='Write a review......' required></textarea>
         <button>submit</button>
       </form>
       <h3>All Review</h3>

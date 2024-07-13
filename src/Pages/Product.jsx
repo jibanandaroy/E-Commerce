@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { ShopContext } from '../Context/ShopContext'
 import { useParams } from 'react-router-dom'
-
+import './CSS/Product.css'
 import { ProductDisplay } from '../Component/ProductDisplay/ProductDisplay'
 import { DescriptionBox } from '../Component/DescriptionBox/DescriptionBox'
 
@@ -12,7 +12,7 @@ export const Product = () => {
 
   return (
     <>
-      <div>
+      <div className='product'>
         <ProductDisplay product={product} />
         <DescriptionBox product={product}/>
       </div>

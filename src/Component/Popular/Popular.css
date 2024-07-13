@@ -4,11 +4,11 @@
     align-items: center;
     gap: 10px;
     height: 110vh;
-    background: linear-gradient(180deg, #e8f3ec, #77be5622 60%);
-
+    /* background: linear-gradient(180deg, #e8f3ec, #77be5622 60%); */
+    background-color: #110c9d;
 }
 .popular h1{
-    color: #171717;
+    color: #ffffff;
     font-size: 50px;
     font-weight: 600;
     margin-top: 50px;
@@ -17,7 +17,7 @@
     width: 200px;
     height: 6px;
     border-radius: 10px;
-    background: #252525;
+    background: #ffffff;
 }
 .popular_item{
     margin-top: 50px;

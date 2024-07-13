@@ -1,5 +1,6 @@
 .cartitems{
-    margin: 100px 120px;
+    margin: 0px 120px;
+    padding-top: 50px;
 }
 .cartitems hr{
     height: 3px;
@@ -41,8 +42,6 @@
 .cartitem_total{
     margin-left: 10px;
 }
-
-
 .catritam_down{
     display: flex;
     margin: 100px 0px;
@@ -75,7 +74,7 @@
 .cartitem_total_price .payment_btn:hover{
     background: blue;
 }
-.cartitem_promocode{
+/* .cartitem_promocode{
     flex: 1;
     font-size: 16px;
     font-weight: 500;
@@ -105,7 +104,7 @@
     background: black;
     color: white;
     cursor: pointer;
-}
+} */
 /*------------------ modal -----------------------*/
 body.active-modal {
     overflow-y: hidden;

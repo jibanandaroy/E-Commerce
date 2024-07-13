@@ -1,6 +1,14 @@
+.shop_cetagory{
+    padding-bottom: 50px;
+    background-color: #0b0683;
+}
 .shopCategory_banner{
+    padding-top: 50px;
+}
+.shopCategory_banner img{
     display: block;
-    margin: 30px auto;
+    margin: auto;
+    margin-bottom: 50px;
     width: 82%;
 }
 .shopCategory_indexSort{
@@ -21,7 +29,7 @@
     margin: 20px 30px;
     margin-left: 50px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     row-gap: 80px;
     
 }

@@ -8,6 +8,7 @@
 .description_box form label{
     font-size: 20px;
     font-weight: 600;
+    color: white;
 }
 .description_box form textarea{
     width: 300px;
@@ -32,6 +33,7 @@
 }
 .description_box h3{
     margin-top: 30px;
+    color: white;
 } 
 .all_reviewList{
     width: 100%;
@@ -41,7 +43,7 @@
 .all_review{
     /* margin-top: 30px; */
     margin-left: 50px;
-    
+    color: white;
 }
 .all_review p{
     margin-left: 20px;
