@@ -200,7 +200,7 @@ const forgotPassword = async (req, res) => {
         if (!errors.isEmpty()) {
             return res.status(400).json({
                 success: false,
-                msg: "Error",
+                msg: "Please Enter valid Email",
                 error: errors.array()
             });
         }
